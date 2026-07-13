@@ -120,7 +120,7 @@ main.page-content .mermaid svg{max-width:100% !important;height:auto !important}
 <h2>UC1 — Frequent-traveller loyalty upsell (the hero use case)</h2>
 <p><strong>Who</strong>: Silver-tier customers with high trip volume in the trailing 90 days — candidates for a Gold-tier nudge.</p>
 <p><strong>Data</strong>: <code>CUSTOMERS.loyalty_tier = &#x27;silver&#x27;</code> joined to a <code>TRIPS</code> count/recency aggregate.</p>
-<p><strong>Modules</strong>: 4 (segment → sync → Braze campaign, the first full send), 5 (this send&#x27;s engagement is what gets read back in the closing-the-loop exercise).</p>
+<p><strong>Modules</strong>: 4 (segment → sync → Braze campaign, the first full send — also the lesson&#x27;s event-triggered example: the sync fires a Braze custom event and an Action-Based Canvas trigger sends off it, rather than a native Segment), 5 (this send&#x27;s engagement is what gets read back in the closing-the-loop exercise).</p>
 <p><strong>Why it&#x27;s the first one taught</strong>: single-table-plus-aggregate filter — the simplest possible &quot;real&quot; segment, and the happy path for a first full segment→sync→send walkthrough.</p>
 <h2>UC2 — Low-balance / auto-top-up-off nudge</h2>
 <p><strong>Who</strong>: customers not on auto top-up, with no successful recharge in the trailing 30 days.</p>

@@ -118,23 +118,32 @@ main.page-content .mermaid svg{max-width:100% !important;height:auto !important}
 <h1>Lesson 4 — Segments + Activation</h1>
 <p><strong>Module 4 · Deep dive · ~120–150 min (the longest lesson — consider splitting UC1 from UC2/UC3)</strong></p>
 <h2>Before this lesson</h2>
-<p>Lessons 1–3 complete: single customer view built, Braze and Snowflake-writeback destinations connected and proven. This lesson builds three real Braze activations — UC1, UC2, UC3 from <a class="docref" href="../use-cases.html"><code>../use-cases.md</code></a> — end to end: Hightouch segment → sync → Braze Segment → Canvas → send.</p>
+<p>Lessons 1–3 complete: single customer view built, Braze and Snowflake-writeback destinations connected and proven. This lesson builds three real Braze activations — UC1, UC2, UC3 from <a class="docref" href="../use-cases.html"><code>../use-cases.md</code></a> — end to end: Hightouch segment → sync → Braze → Canvas → send. UC1 and UC2/UC3 use two genuinely different Braze mechanisms, both real, both worth knowing.</p>
 <h2>Learning objectives</h2>
 <p>By the end, the colleague should be able to:</p>
 <ol>
-<li><p>Explain the standard Hightouch→Braze reverse-ETL pattern: a sync writes a boolean custom attribute onto the Braze profile; Braze&#x27;s own native Segment then filters on that attribute.</p></li>
-<li><p>Build a Hightouch segment, sync it as a flag, and build the matching Braze Segment + Canvas.</p></li>
+<li><p>Explain the two standard Hightouch→Braze reverse-ETL patterns: sync-as-custom-event with an Action-Based Canvas trigger (near-real-time, UC1), and sync-as-custom-attribute with a native Segment (batch/periodic, UC2/UC3) — and when each is the better choice.</p></li>
+<li><p>Build a Hightouch segment and wire it to a Braze send using either pattern.</p></li>
 <li><p>Compose two segments&#x27; logic together as an exclusion, rather than building a third campaign from scratch.</p></li>
 </ol>
-<h2>0. Concept primer — how a Hightouch segment becomes a Braze send (10 min)</h2>
-<p>Hightouch doesn&#x27;t &quot;send campaigns&quot; — it moves data. The actual audience-targeting and message sending happens inside Braze, on Braze&#x27;s own native Segment/Canvas objects. The bridge between the two is a <strong>synced custom attribute</strong>:</p>
+<h2>0. Concept primer — two ways a Hightouch segment becomes a Braze send (15 min)</h2>
+<p>Hightouch doesn&#x27;t &quot;send campaigns&quot; — it moves data. The actual audience-targeting and message sending happens inside Braze, on Braze&#x27;s own native objects. There are two real, commonly-used ways to bridge a Hightouch segment into a Braze send, and this lesson deliberately teaches both rather than picking one:</p>
+<p><strong>Pattern A — custom event + Action-Based Canvas trigger (UC1)</strong></p>
 <ol>
-<li><p>A Hightouch model/segment returns exactly the rows that qualify for something (e.g. UC1&#x27;s loyalty candidates), each with a boolean column set to <code>TRUE</code>.</p></li>
-<li><p>A sync writes that boolean as a <strong>custom attribute</strong> onto the matching Braze profile, matched by <code>external_id = customer_id</code>.</p></li>
-<li><p>In Braze, a native <strong>Segment</strong> filters on &quot;custom attribute X is true&quot; — this is a real Braze object, built in the Braze dashboard, not something Hightouch creates for you.</p></li>
-<li><p>A <strong>Canvas</strong> (or Campaign) targets that Braze Segment and actually sends.</p></li>
+<li><p>A Hightouch model returns exactly the rows that qualify right now (e.g. UC1&#x27;s loyalty candidates).</p></li>
+<li><p>A sync fires a <strong>custom event</strong> for each qualifying row — not an attribute update. Braze&#x27;s <code>/users/track</code> API accepts attributes, events, and purchases as genuinely distinct object types; Hightouch&#x27;s Braze destination lets a sync target either.</p></li>
+<li><p>A Canvas with an <strong>Action-Based entry trigger</strong> (trigger = that custom event) fires per-user the instant the event lands — no separate Braze Segment object is needed for entry at all.</p></li>
 </ol>
-<p>This is the same pattern used in real Hightouch→Braze implementations — it&#x27;s not a training-only simplification. One operational note worth knowing now: Hightouch sync modes control what happens to a profile that <em>used to</em> qualify but no longer does on a later run (&quot;add new only&quot; vs. &quot;add, update, and unset removed rows&quot;). Use the full add/update/unset mode for every sync in this lesson — otherwise a customer who drops out of a segment keeps a stale <code>true</code> attribute forever.</p>
+<p>This is near-real-time and closer to what a real &quot;customer journey&quot; trigger looks like — the Canvas reacts to something happening, rather than periodically re-checking a static audience.</p>
+<p><strong>Pattern B — custom attribute + native Segment (UC2, UC3)</strong></p>
+<ol>
+<li><p>A Hightouch model returns exactly the rows that qualify, each with a boolean column set to <code>TRUE</code>.</p></li>
+<li><p>A sync writes that boolean as a <strong>custom attribute</strong> onto the matching Braze profile.</p></li>
+<li><p>A native Braze <strong>Segment</strong> filters on &quot;custom attribute X is true&quot; — a real object, built in the Braze dashboard, not something Hightouch creates for you.</p></li>
+<li><p>A <strong>Canvas</strong> (or Campaign) with segment-entry targets that Segment and sends on a schedule or on demand.</p></li>
+</ol>
+<p>This is the more common pattern for ongoing, audience-style campaigns — the segment is a stable, inspectable object you can reuse across multiple sends, not a one-shot trigger.</p>
+<p>Both are genuine patterns used in real Hightouch→Braze implementations, matched by <code>external_id = customer_id</code> in either case. One operational note worth knowing now for Pattern B: Hightouch sync modes control what happens to a profile that <em>used to</em> qualify but no longer does on a later run (&quot;add new only&quot; vs. &quot;add, update, and unset removed rows&quot;). Use the full add/update/unset mode for UC2/UC3&#x27;s syncs — otherwise a customer who drops out of a segment keeps a stale <code>true</code> attribute forever. Pattern A doesn&#x27;t have this problem the same way: if a customer no longer qualifies, the event simply never fires for them again — there&#x27;s no stale flag to unset.</p>
 <h2>1. Seed the Braze profiles first</h2>
 <p>None of the three use cases below will work if the underlying Braze profiles don&#x27;t exist yet. Do this once, before UC1.</p>
 <ol>
@@ -151,7 +160,7 @@ main.page-content .mermaid svg{max-width:100% !important;height:auto !important}
 <li><p>Run the sync. In the Braze dashboard, <strong>Users → search</strong> any known ID (e.g. <code>ht101_tw_cust_000001</code>) and confirm the profile exists with the mapped fields populated.</p></li>
 </ol>
 <p>📸 <strong>Screenshot checkpoint</strong>: the seed sync&#x27;s run history showing ~1,000 profiles created/updated, and one profile&#x27;s detail view in Braze.</p>
-<h2>2. UC1 — Frequent-traveller loyalty upsell</h2>
+<h2>2. UC1 — Frequent-traveller loyalty upsell (Pattern A — event-triggered)</h2>
 <p><strong>Hightouch side:</strong></p>
 <ol>
 <li><p><strong>Models → Add model → SQL model</strong>:</p>
@@ -164,21 +173,19 @@ WHERE c.loyalty_tier = &#x27;silver&#x27;
   AND t.trip_datetime &gt;= DATEADD(day, -90, CURRENT_DATE())
 GROUP BY c.customer_id
 HAVING COUNT(t.trip_id) &gt;= 15</code></pre>
-<p>Save as <code>TollWay - UC1 Loyalty Candidates</code>. Check the row count against the cheatsheet query in <a class="docref" href="../dictionary/cheatsheet.html"><code>../dictionary/cheatsheet.md</code></a> (&quot;UC1 — frequent-traveller candidates&quot;) — they should match exactly, since this is the same filter with the flag column added.</p></li>
+<p>Save as <code>TollWay - UC1 Loyalty Candidates</code>. Check the row count against the cheatsheet query in <a class="docref" href="../dictionary/cheatsheet.html"><code>../dictionary/cheatsheet.md</code></a> (&quot;UC1 — frequent-traveller candidates&quot;) — they should match exactly, since this is the same filter with the flag column added. The flag column&#x27;s value doesn&#x27;t actually matter for this pattern (every row already means &quot;qualifies&quot;) — it&#x27;s kept for consistency with UC2/UC3&#x27;s models and because Hightouch still needs a column to hang the sync off, but you won&#x27;t map it to a Braze attribute this time.</p></li>
 <li><p><strong>Syncs → Add sync</strong>, source = <code>TollWay - UC1 Loyalty Candidates</code>, destination = <code>TollWay - Braze</code>, match on <code>external_id = customer_id</code>.</p></li>
-<li><p>Field mapping: map <code>ht101_tw_uc1_loyalty_candidate</code> → a Braze custom attribute of the same name. This is the only field this sync needs to send — the identity fields were already seeded in step 1.</p></li>
-<li><p>Run the sync. Confirm the row count matches the model&#x27;s row count.</p></li>
+<li><p><strong>Sync behavior</strong>: set the destination object type to <strong>Track Event</strong> (not &quot;Update User Attributes&quot; — check the sync configuration&#x27;s object-type selector, it&#x27;s a distinct mode). Event name: <code>ht101_tw_uc1_loyalty_qualified</code>. Every row the model returns fires this event once for that customer.</p></li>
+<li><p>Run the sync. In Braze, <strong>Users → search</strong> a known qualifying customer ID and check their activity/event log for <code>ht101_tw_uc1_loyalty_qualified</code> — confirm the event actually landed before building the Canvas on top of it.</p></li>
 </ol>
-<p>📸 <strong>Screenshot checkpoint</strong>: the UC1 sync&#x27;s run history and row count.</p>
+<p>📸 <strong>Screenshot checkpoint</strong>: the UC1 sync&#x27;s run history, and one profile&#x27;s event log showing the fired event.</p>
 <p><strong>Braze side:</strong></p>
 <ol>
-<li><p><strong>Audience → Segments → Create Segment</strong>. Filter: Custom Attribute <code>ht101_tw_uc1_loyalty_candidate</code> <strong>is</strong> <code>true</code>. Save as <code>TollWay - Loyalty Upsell (UC1)</code>.</p></li>
-<li><p>Check the segment&#x27;s estimated size in Braze — it should match the Hightouch sync&#x27;s row count. If it doesn&#x27;t, stop and check the field mapping before building anything on top of it.</p></li>
-<li><p><strong>Canvas → Create Canvas</strong>. Single-step, entry: segment entry targeting <code>TollWay - Loyalty Upsell (UC1)</code>. Step 1: Email message. Compose a simple mock subject/body (e.g. &quot;You&#x27;re close to Gold — take 3 more trips this month&quot;). Name the Canvas <code>HT101 TW — UC1 Loyalty Upsell</code>.</p></li>
+<li><p><strong>Canvas → Create Canvas</strong>. Entry: <strong>Action-Based</strong>, trigger: <strong>Custom Event</strong> → <code>ht101_tw_uc1_loyalty_qualified</code>. No Segment object needed for entry — the trigger <em>is</em> the audience definition. Step 1: Email message. Compose a simple mock subject/body (e.g. &quot;You&#x27;re close to Gold — take 3 more trips this month&quot;). Name the Canvas <code>HT101 TW — UC1 Loyalty Upsell</code>.</p></li>
 <li><p>Review, then launch. Since every profile&#x27;s email is <code>@example.com</code>, nothing will actually deliver — safe to launch for real rather than leaving it in draft, which is the more honest test of the full pipeline.</p></li>
-<li><p>Confirm the Canvas&#x27;s entry count in its analytics view matches the segment size.</p></li>
+<li><p>Unlike a segment-entry send, launching an Action-Based Canvas makes it <strong>stay active</strong> — it keeps listening for the event indefinitely, not just once. Confirm the Canvas&#x27;s entry count in its analytics view matches the number of customers who had the event fired for them in step 4. If you re-run the sync tomorrow, anyone still qualifying re-fires the event and re-enters — that&#x27;s expected behavior for this pattern, not a bug.</p></li>
 </ol>
-<p>📸 <strong>Screenshot checkpoint</strong>: the Canvas analytics view showing the entry count.</p>
+<p>📸 <strong>Screenshot checkpoint</strong>: the Canvas&#x27;s Action-Based entry configuration, and the analytics view showing the entry count.</p>
 <h2>3. UC2 — Low-balance / auto-top-up-off nudge</h2>
 <p>Same pattern as UC1, faster now that the mechanic is familiar. This is the one that introduces <code>TOPUPS</code> — a table not yet touched by any Hightouch model in this course.</p>
 <p><strong>Hightouch side:</strong></p>
@@ -219,13 +226,13 @@ GROUP BY c.customer_id
 HAVING COUNT(t.trip_id) &gt;= 15 AND MAX(st.ticket_id) IS NULL</code></pre>
 <p>The <code>LEFT JOIN ... IS NULL</code> anti-join pattern, not <code>NOT IN (SELECT ...)</code> — same house convention as the cheatsheet&#x27;s UC3 query. <code>MAX(st.ticket_id) IS NULL</code> in the <code>HAVING</code> clause is what actually excludes a customer: if any open ticket joined in, that column is non-null for that customer and the row gets dropped.</p></li>
 <li><p>Repeat the same anti-join addition on <code>TollWay - UC2 Low Balance Candidates</code>.</p></li>
-<li><p>Re-run both syncs. Compare the new row counts against the pre-exclusion counts recorded in steps 2–3 above — they should drop by roughly the ~6% open-ticket-seeded cohort documented in <a class="docref" href="../dictionary/inconsistencies.html"><code>../dictionary/inconsistencies.md</code></a>.</p></li>
-<li><p>Back in Braze, confirm both segments&#x27; estimated sizes dropped by a matching amount. Nothing else needs to change — the Canvases built in UC1/UC2 automatically reflect the new, smaller audience the next time they evaluate entry, since they target the segment, not a fixed list.</p></li>
+<li><p>Re-run both syncs. Compare the new row counts against the pre-exclusion counts recorded earlier — they should drop by roughly the ~6% open-ticket-seeded cohort documented in <a class="docref" href="../dictionary/inconsistencies.html"><code>../dictionary/inconsistencies.md</code></a>.</p></li>
+<li><p>Nothing else needs to change on either Canvas, but the reason differs by pattern: UC2&#x27;s Segment-entry Canvas automatically reflects the new, smaller audience next time it evaluates entry, since it targets the segment, not a fixed list — confirm its estimated size dropped in Braze. UC1&#x27;s Action-Based Canvas doesn&#x27;t need a segment update at all; a customer who now has an open ticket simply stops appearing in the model, so the event never fires for them again on the next sync run — they naturally stop entering without anything being explicitly removed.</p></li>
 </ol>
-<p>📸 <strong>Screenshot checkpoint</strong>: before/after row counts for both models, and the two Braze segments&#x27; updated estimated sizes.</p>
+<p>📸 <strong>Screenshot checkpoint</strong>: before/after row counts for both models, and UC2&#x27;s Braze segment&#x27;s updated estimated size.</p>
 <h2>5. Wrap-up (10 min)</h2>
 <ul>
-<li><p>Recap: Braze profiles seeded, two real segment→sync→Canvas activations built and sent, one exclusion composed into both without building a third campaign.</p></li>
+<li><p>Recap: Braze profiles seeded, two real activations built and sent using two different patterns (UC1 event-triggered, UC2 segment-based), one exclusion composed into both without building a third campaign.</p></li>
 <li><p>Preview: Lesson 5 uses UC1&#x27;s Canvas send specifically — its engagement data (opens/clicks) flows back into Snowflake via a Braze Data Share, gets re-queried in Hightouch, and becomes UC4&#x27;s refined follow-up segment.</p></li>
 </ul>
 </main>

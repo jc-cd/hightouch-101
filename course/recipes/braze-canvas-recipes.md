@@ -1,5 +1,26 @@
 # Braze Canvas + Currents Recipes (generic)
 
+## Attribute+Segment vs. Event+Action-Trigger — which to reach for
+
+Two real patterns bridge a Hightouch segment into a Braze send, matched by
+`external_id = customer_id` in both cases:
+
+- **Event + Action-Based trigger**: the sync fires a Braze **custom event** (not an attribute
+  update) via `/users/track`; a Canvas with an Action-Based entry trigger keyed to that event
+  fires per-user the instant it lands. No Braze Segment object needed for entry. Near-real-time,
+  good for "something just happened, react now" sends. Once launched, the Canvas stays active and
+  re-triggers every time the event fires again — there's no stale-flag problem, since a customer
+  who stops qualifying just stops generating the event.
+- **Attribute + native Segment**: the sync writes a boolean **custom attribute**; a Braze
+  Segment filters on it; a Canvas or Campaign with segment-entry targets the Segment. Batch/
+  periodic — the more common pattern for ongoing, audience-style campaigns, since the Segment is
+  a stable, reusable, inspectable object. Needs the sync's full add/update/unset mode, or a
+  customer who drops out keeps a stale `true` attribute forever.
+
+Neither is "more correct" — pick based on whether the send is reacting to something happening
+(event) or targeting a standing audience (attribute+segment). This course teaches both: see
+`../../business-packs/tollway/lessons/04-segments-and-activation.md` for a worked example of each.
+
 ## Single-send Canvas (Module 4 pattern)
 
 For a first exercise, a Canvas with exactly one step (send email) targeting the synced segment

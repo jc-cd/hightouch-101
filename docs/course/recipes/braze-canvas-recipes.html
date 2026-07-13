@@ -116,6 +116,13 @@ main.page-content .mermaid svg{max-width:100% !important;height:auto !important}
 <main class="page-content">
 
 <h1>Braze Canvas Recipes</h1>
+<h2>Attribute+Segment vs. Event+Action-Trigger — which to reach for</h2>
+<p>Two real patterns bridge a Hightouch segment into a Braze send, matched by <code>external_id = customer_id</code> in both cases:</p>
+<ul>
+<li><p><strong>Event + Action-Based trigger</strong>: the sync fires a Braze <strong>custom event</strong> (not an attribute update) via <code>/users/track</code>; a Canvas with an Action-Based entry trigger keyed to that event fires per-user the instant it lands. No Braze Segment object needed for entry. Near-real-time, good for &quot;something just happened, react now&quot; sends. Once launched, the Canvas stays active and re-triggers every time the event fires again — there&#x27;s no stale-flag problem, since a customer who stops qualifying just stops generating the event.</p></li>
+<li><p><strong>Attribute + native Segment</strong>: the sync writes a boolean <strong>custom attribute</strong>; a Braze Segment filters on it; a Canvas or Campaign with segment-entry targets the Segment. Batch/ periodic — the more common pattern for ongoing, audience-style campaigns, since the Segment is a stable, reusable, inspectable object. Needs the sync&#x27;s full add/update/unset mode, or a customer who drops out keeps a stale <code>true</code> attribute forever.</p></li>
+</ul>
+<p>Neither is &quot;more correct&quot; — pick based on whether the send is reacting to something happening (event) or targeting a standing audience (attribute+segment). This course teaches both: see <a class="docref" href="../../tollway/lessons/04-segments-and-activation.html"><code>../../business-packs/tollway/lessons/04-segments-and-activation.md</code></a> for a worked example of each.</p>
 <h2>Single-send Canvas (Module 4 pattern)</h2>
 <p>For a first exercise, a Canvas with exactly one step (send email) targeting the synced segment is enough to prove the segment→sync→Braze pipeline works end to end. Don&#x27;t reach for multi-step Canvas logic (delays, branches, multiple channels) until the single-step version has been verified to actually deliver to the expected audience size.</p>
 <h2>Currents / Data Share → warehouse write-back (Module 5 pattern)</h2>

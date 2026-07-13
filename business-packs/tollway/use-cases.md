@@ -11,7 +11,10 @@ subscription business) are good additions for a later session, not needed for v1
 
 **Data**: `CUSTOMERS.loyalty_tier = 'silver'` joined to a `TRIPS` count/recency aggregate.
 
-**Modules**: 4 (segment → sync → Braze campaign, the first full send), 5 (this send's engagement is what gets read back in the closing-the-loop exercise).
+**Modules**: 4 (segment → sync → Braze campaign, the first full send — also the lesson's
+event-triggered example: the sync fires a Braze custom event and an Action-Based Canvas trigger
+sends off it, rather than a native Segment), 5 (this send's engagement is what gets read back in
+the closing-the-loop exercise).
 
 **Why it's the first one taught**: single-table-plus-aggregate filter — the simplest possible "real" segment, and the happy path for a first full segment→sync→send walkthrough.
 
