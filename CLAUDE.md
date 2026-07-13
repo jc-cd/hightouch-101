@@ -14,11 +14,11 @@ course/            vertical-agnostic shell — pedagogy, platform-mechanics reci
 business-packs/    one folder per fictional mock business, each a full self-contained scenario
   tollway/         v1 — fictional AU toll-road operator (see business-packs/tollway/CLAUDE.md)
 tools/             build_site.py — generates the presentation site from the .md docs above
-site/              generated output (committed) — the actual browsable multi-page site
+docs/              generated output (committed) — the actual browsable multi-page site
 ```
 
 `.md` files under `course/` and `business-packs/` are the canonical source — `tools/build_site.py`
-only reads them, never writes back. `site/` is generated output, not hand-edited. Rerun the
+only reads them, never writes back. `docs/` is generated output, not hand-edited. Rerun the
 generator after any doc change: `python3 tools/build_site.py`.
 
 `course/` doesn't change per business. Only `business-packs/<name>/` changes. A future vertical

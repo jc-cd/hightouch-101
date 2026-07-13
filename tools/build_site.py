@@ -4,7 +4,7 @@ build_site.py — generates the hightouch-101 multi-page presentation site.
 
 Reads every .md doc under course/ and business-packs/tollway/ (CLAUDE.md files
 excluded — those are Claude/Johan working conventions, not colleague-facing
-content) and renders them into a shared-template static site under site/.
+content) and renders them into a shared-template static site under docs/.
 
 This script NEVER writes back to the source .md files — read-only input,
 generated output only. Rerun it after editing any source doc:
@@ -29,7 +29,7 @@ import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SITE_DIR = os.path.join(ROOT, "site")
+SITE_DIR = os.path.join(ROOT, "docs")  # "docs", not "site" — GitHub Pages only serves / or /docs
 
 # ----------------------------------------------------------------------
 # Manifest — every page in the site. (src, out, title, section)

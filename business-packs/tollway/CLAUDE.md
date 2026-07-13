@@ -36,8 +36,8 @@ exercises, `dictionary/` for the data.
 
 There's no more standalone `overview.html`/`diagrams.html` — superseded by the multi-page site
 generated from `../../tools/build_site.py` (reads every `.md` in this pack and `course/`, never
-modifies them, outputs to `../../site/`). Rerun the generator after editing any source doc;
-`../../site/` is committed output, not something colleagues edit directly.
+modifies them, outputs to `../../docs/`). Rerun the generator after editing any source doc;
+`../../docs/` is committed output, not something colleagues edit directly.
 
 ## Status
 
