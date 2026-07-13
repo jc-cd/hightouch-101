@@ -1,0 +1,49 @@
+gantry_id,road_name,locality,state,gantry_type,base_rate_per_km
+ht101_tw_gan_0001,Skyline Freeway,Chatswood,NSW,mainline,0.45
+ht101_tw_gan_0002,Skyline Freeway,Lane Cove,NSW,mainline,0.45
+ht101_tw_gan_0003,Skyline Freeway,North Ryde,NSW,mainline,0.45
+ht101_tw_gan_0004,Skyline Freeway,Epping,NSW,ramp,0.38
+ht101_tw_gan_0005,Harbourlink Tunnel,Milsons Point,NSW,mainline,0.62
+ht101_tw_gan_0006,Harbourlink Tunnel,The Rocks,NSW,mainline,0.62
+ht101_tw_gan_0007,Harbourlink Tunnel,Kirribilli,NSW,ramp,0.50
+ht101_tw_gan_0008,Westbank Motorway,Parramatta,NSW,mainline,0.40
+ht101_tw_gan_0009,Westbank Motorway,Silverwater,NSW,mainline,0.40
+ht101_tw_gan_0010,Westbank Motorway,Auburn,NSW,ramp,0.33
+ht101_tw_gan_0011,Portside Expressway,Botany,NSW,mainline,0.48
+ht101_tw_gan_0012,Portside Expressway,Mascot,NSW,mainline,0.48
+ht101_tw_gan_0013,Portside Expressway,Rosebery,NSW,ramp,0.36
+ht101_tw_gan_0014,Ridgeway Motorway,Tullamarine,VIC,mainline,0.44
+ht101_tw_gan_0015,Ridgeway Motorway,Essendon,VIC,mainline,0.44
+ht101_tw_gan_0016,Ridgeway Motorway,Moonee Ponds,VIC,ramp,0.35
+ht101_tw_gan_0017,Bayview Tollway,Port Melbourne,VIC,mainline,0.50
+ht101_tw_gan_0018,Bayview Tollway,South Melbourne,VIC,mainline,0.50
+ht101_tw_gan_0019,Bayview Tollway,Docklands,VIC,ramp,0.39
+ht101_tw_gan_0020,Innerloop Freeway,Richmond,VIC,mainline,0.46
+ht101_tw_gan_0021,Innerloop Freeway,Collingwood,VIC,mainline,0.46
+ht101_tw_gan_0022,Innerloop Freeway,Fitzroy,VIC,ramp,0.37
+ht101_tw_gan_0023,Innerloop Freeway,Hawthorn,VIC,mainline,0.46
+ht101_tw_gan_0024,Bayview Tollway,St Kilda,VIC,ramp,0.39
+ht101_tw_gan_0025,Northline Tollway,Chermside,QLD,mainline,0.43
+ht101_tw_gan_0026,Northline Tollway,Aspley,QLD,mainline,0.43
+ht101_tw_gan_0027,Northline Tollway,Nundah,QLD,ramp,0.34
+ht101_tw_gan_0028,Riverside Expressway,South Bank,QLD,mainline,0.47
+ht101_tw_gan_0029,Riverside Expressway,West End,QLD,mainline,0.47
+ht101_tw_gan_0030,Riverside Expressway,Toowong,QLD,ramp,0.36
+ht101_tw_gan_0031,Sunset Freeway,Sherwood,QLD,mainline,0.41
+ht101_tw_gan_0032,Sunset Freeway,Indooroopilly,QLD,mainline,0.41
+ht101_tw_gan_0033,Sunset Freeway,Corinda,QLD,ramp,0.32
+ht101_tw_gan_0034,Skyline Freeway,Macquarie Park,NSW,mainline,0.45
+ht101_tw_gan_0035,Westbank Motorway,Lidcombe,NSW,ramp,0.33
+ht101_tw_gan_0036,Portside Expressway,Eastlakes,NSW,mainline,0.48
+ht101_tw_gan_0037,Ridgeway Motorway,Airport West,VIC,ramp,0.35
+ht101_tw_gan_0038,Bayview Tollway,Albert Park,VIC,mainline,0.50
+ht101_tw_gan_0039,Innerloop Freeway,Abbotsford,VIC,ramp,0.37
+ht101_tw_gan_0040,Northline Tollway,Kedron,QLD,mainline,0.43
+ht101_tw_gan_0041,Riverside Expressway,Milton,QLD,ramp,0.36
+ht101_tw_gan_0042,Sunset Freeway,Graceville,QLD,mainline,0.41
+ht101_tw_gan_0043,Harbourlink Tunnel,North Sydney,NSW,mainline,0.62
+ht101_tw_gan_0044,Skyline Freeway,Artarmon,NSW,ramp,0.38
+ht101_tw_gan_0045,Ridgeway Motorway,Broadmeadows,VIC,mainline,0.44
+ht101_tw_gan_0046,Northline Tollway,Lutwyche,QLD,ramp,0.34
+ht101_tw_gan_0047,Portside Expressway,Zetland,NSW,ramp,0.36
+ht101_tw_gan_0048,Bayview Tollway,Southbank,VIC,ramp,0.39

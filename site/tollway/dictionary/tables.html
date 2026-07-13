@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Table Dictionary · Hightouch 101</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+
+:root{
+  --bg:#0D0D1A;--card:#1A1A2E;--line:#2a2a44;--txt:#ffffff;
+  --muted:#cfd0e0;--purple:#6C5CE7;--cyan:#00D4FF;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--txt);font-family:Poppins,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+.shell{display:flex;min-height:100vh}
+.sidebar{width:260px;flex:0 0 260px;background:var(--card);border-right:1px solid var(--line);padding:22px 18px;position:sticky;top:0;height:100vh;overflow-y:auto}
+.brand{font-size:15px;font-weight:700;margin-bottom:18px;line-height:1.4}
+.brand .eyebrow{font-size:10.5px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--purple)}
+.navgroup{margin-bottom:16px}
+.navgroup .gh{font-size:10.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin:14px 0 6px}
+.navgroup a{display:block;color:var(--muted);text-decoration:none;font-size:13px;padding:5px 8px;border-radius:7px;margin-bottom:1px}
+.navgroup a:hover{background:rgba(255,255,255,.05);color:var(--txt)}
+.navgroup a.active{background:rgba(108,92,231,.18);color:var(--cyan);font-weight:600}
+main.page-content{flex:1;max-width:1300px;padding:36px 48px 80px}
+main.page-content h1{font-size:30px;font-weight:700;letter-spacing:-.3px;margin:0 0 18px;max-width:900px}
+main.page-content h2{font-size:19px;font-weight:600;margin:32px 0 12px;color:var(--cyan);max-width:900px}
+main.page-content h3{font-size:16px;font-weight:600;margin:22px 0 8px;max-width:900px}
+main.page-content h4{font-size:14px;font-weight:600;margin:18px 0 6px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;max-width:900px}
+main.page-content p{max-width:820px;color:var(--muted);margin:0 0 14px;font-size:15px}
+main.page-content strong{color:var(--txt)}
+main.page-content ul,main.page-content ol{max-width:820px;color:var(--muted);margin:0 0 14px;padding-left:24px;font-size:15px}
+main.page-content li{margin-bottom:6px}
+main.page-content li p{margin:0 0 6px}
+main.page-content code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:5px;font-size:13px;color:var(--cyan);font-family:'SF Mono',Consolas,monospace}
+main.page-content a.docref{text-decoration:none}
+main.page-content a.docref code{color:var(--cyan);text-decoration:underline;text-decoration-color:rgba(0,212,255,.4)}
+main.page-content pre{background:#0a0a18;border:1px solid var(--line);border-radius:10px;padding:16px 18px;overflow-x:auto;margin:0 0 16px;max-width:1100px}
+main.page-content pre code{background:none;padding:0;color:var(--txt);font-size:13.5px;line-height:1.55}
+main.page-content table{border-collapse:collapse;width:100%;max-width:1100px;margin:0 0 20px;font-size:14px}
+main.page-content th{text-align:left;font-size:11px;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);padding:0 14px 10px 0;border-bottom:1px solid var(--line)}
+main.page-content td{padding:10px 14px 10px 0;border-bottom:1px solid rgba(255,255,255,.05);color:var(--muted);vertical-align:top}
+main.page-content .mermaid{width:100%;display:flex;justify-content:center;margin:20px 0 28px;overflow-x:auto}
+main.page-content .mermaid svg{max-width:100% !important;height:auto !important}
+.home-hero{max-width:820px;margin-bottom:30px}
+.home-hero .eyebrow{font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--purple);margin-bottom:6px}
+.home-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;max-width:1300px}
+.home-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.home-card h3{margin-top:0;color:var(--txt);font-size:15px}
+.home-card ul{margin:0;padding-left:20px}
+.home-card a{color:var(--cyan);text-decoration:none;font-size:14px}
+.home-card a:hover{text-decoration:underline}
+.home-card li{margin-bottom:5px}
+@media(max-width:900px){
+  .shell{flex-direction:column}
+  .sidebar{width:100%;flex:none;position:relative;height:auto}
+  main.page-content{padding:24px 20px}
+  .home-grid{grid-template-columns:1fr}
+}
+
+</style>
+</head>
+<body>
+<div class="shell">
+<aside class="sidebar">
+  <div class="brand"><span class="eyebrow">Hightouch 101</span><br>TollWay</div>
+  <nav>
+    <a href="../../index.html" class="">Home</a>
+  <div class="navgroup"><div class="gh">Course</div>
+    <a href="../../course/syllabus.html" class="">Syllabus</a>
+    <a href="../../course/diagrams/architecture-overview.html" class="">Generic Architecture</a>
+    <a href="../../course/diagrams/course-flow.html" class="">Generic Course Flow</a>
+    <a href="../../course/recipes/hightouch-model-recipes.html" class="">Hightouch Model Recipes</a>
+    <a href="../../course/recipes/hightouch-sync-recipes.html" class="">Hightouch Sync Recipes</a>
+    <a href="../../course/recipes/braze-canvas-recipes.html" class="">Braze Canvas Recipes</a>
+    <a href="../../course/reset/index.html" class="">Reset — Index</a>
+    <a href="../../course/reset/warehouse-reset-template.html" class="">Warehouse Reset Template</a>
+    <a href="../../course/reset/hightouch-braze-checklist-template.html" class="">Hightouch + Braze Checklist Template</a>
+  </div>
+  <div class="navgroup"><div class="gh">TollWay</div>
+    <a href="../brief.html" class="">Business Brief</a>
+    <a href="../use-cases.html" class="">Use Cases</a>
+    <a href="../reset/reset-tollway-checklist.html" class="">TollWay Reset Checklist</a>
+  </div>
+  <div class="navgroup"><div class="gh">TollWay Dictionary</div>
+    <a href="index.html" class="">Dictionary — Index</a>
+    <a href="tables.html" class="active">Table Dictionary</a>
+    <a href="relationships.html" class="">Relationships &amp; Diagrams</a>
+    <a href="cheatsheet.html" class="">Diagnostic Cheatsheet</a>
+    <a href="inconsistencies.html" class="">Known Deviations</a>
+  </div>
+  <div class="navgroup"><div class="gh">TollWay Lessons</div>
+    <a href="../lessons/01-cdp-standup.html" class="">Lesson 1 — Stand Up the CDP</a>
+    <a href="../lessons/02-single-customer-view.html" class="">Lesson 2 — Single Customer View</a>
+    <a href="../lessons/03-destinations.html" class="">Lesson 3 — Destinations (roadmap)</a>
+    <a href="../lessons/04-segments-and-activation.html" class="">Lesson 4 — Segments + Activation (roadmap)</a>
+    <a href="../lessons/05-closing-the-loop.html" class="">Lesson 5 — Closing the Loop (roadmap)</a>
+  </div>
+  </nav>
+</aside>
+<main class="page-content">
+<h1>Table Dictionary</h1>
+<p>All six tables live in one dedicated Snowflake schema. No BigQuery in v1 — see <a class="docref" href="inconsistencies.html"><code>inconsistencies.md</code></a>.</p>
+<h2>CUSTOMERS (1,000 rows)</h2>
+<p>The account holder. One row per TollWay toll account (an &quot;account&quot; can be an individual or a small business — see <code>customer_segment</code>).</p>
+<table><thead><tr><th>Column</th><th>Type</th><th>Notes</th></tr></thead><tbody>
+<tr><td><code>customer_id</code></td><td>VARCHAR PK</td><td><code>ht101_tw_cust_000001</code> … <code>ht101_tw_cust_001000</code></td></tr>
+<tr><td><code>account_type</code></td><td>VARCHAR</td><td><code>etag</code> (55%) / <code>video_tolling</code> (35%) / <code>visitor_pass</code> (10%)</td></tr>
+<tr><td><code>customer_segment</code></td><td>VARCHAR</td><td><code>individual</code> (88%) / <code>small_business</code> (12%)</td></tr>
+<tr><td><code>business_name</code></td><td>VARCHAR</td><td>populated only when <code>customer_segment = &#x27;small_business&#x27;</code>, else empty</td></tr>
+<tr><td><code>first_name</code>, <code>last_name</code></td><td>VARCHAR</td><td>contact person on the account</td></tr>
+<tr><td><code>email</code></td><td>VARCHAR</td><td><code>@example.com</code>, index-suffixed, never deliverable</td></tr>
+<tr><td><code>phone</code></td><td>VARCHAR</td><td>AU mobile format</td></tr>
+<tr><td><code>dob</code></td><td>DATE</td><td>triangular skew, 18–80, mode ~40</td></tr>
+<tr><td><code>home_state</code></td><td>VARCHAR</td><td><code>NSW</code> (45%) / <code>VIC</code> (30%) / <code>QLD</code> (15%) / other AU state (10%)</td></tr>
+<tr><td><code>home_city</code>, <code>postal</code></td><td>VARCHAR</td><td>state-matched</td></tr>
+<tr><td><code>time_zone</code></td><td>VARCHAR</td><td>matches <code>home_state</code></td></tr>
+<tr><td><code>signup_date</code></td><td>DATE</td><td>triangular skew over a synthetic 3-year window</td></tr>
+<tr><td><code>account_status</code></td><td>VARCHAR</td><td><code>active</code> (92%) / <code>suspended</code> (5%) / <code>closed</code> (3%)</td></tr>
+<tr><td><code>loyalty_tier</code></td><td>VARCHAR</td><td><code>bronze</code> (55%) / <code>silver</code> (32%) / <code>gold</code> (13%) — drives trip-volume weighting in <code>TRIPS</code>, not independent</td></tr>
+<tr><td><code>payment_method_linked</code></td><td>BOOLEAN</td><td>~85% true</td></tr>
+<tr><td><code>topup_mode</code></td><td>VARCHAR</td><td><code>auto</code> (55%) / <code>manual</code> (35%) / <code>none</code> (10%)</td></tr>
+<tr><td><code>auto_topup_threshold</code></td><td>NUMBER(6,2), nullable</td><td>only set when <code>topup_mode = &#x27;auto&#x27;</code> — one of $10/$20/$30</td></tr>
+<tr><td><code>account_balance</code></td><td>NUMBER(10,2)</td><td>independently randomized, <strong>not</strong> derived from <code>TOPUPS</code>/<code>TRIPS</code> — see <a class="docref" href="inconsistencies.html"><code>inconsistencies.md</code></a></td></tr>
+<tr><td><code>marketing_email_subscribe</code></td><td>VARCHAR</td><td><code>subscribed</code> (90%) / <code>unsubscribed</code> (8%) / <code>opted_in</code> (2%) — Braze <code>email_subscribe</code> semantics</td></tr>
+<tr><td><code>sms_subscribe</code></td><td>BOOLEAN</td><td>secondary channel flag, ~45% true</td></tr>
+</tbody></table>
+<p>No pre-computed aggregates (trip count, lifetime spend, top-up total) live on this table by design — deriving those is the point of Module 2&#x27;s single customer view exercise.</p>
+<h2>VEHICLES (1,407 rows with default seed; varies by seed)</h2>
+<table><thead><tr><th>Column</th><th>Type</th><th>Notes</th></tr></thead><tbody>
+<tr><td><code>vehicle_id</code></td><td>VARCHAR PK</td><td><code>ht101_tw_veh_&lt;customer suffix&gt;_&lt;seq&gt;</code></td></tr>
+<tr><td><code>customer_id</code></td><td>VARCHAR FK → <code>CUSTOMERS</code></td><td></td></tr>
+<tr><td><code>rego_plate</code></td><td>VARCHAR</td><td>AU-style, digit count varies slightly by state</td></tr>
+<tr><td><code>state_registered</code></td><td>VARCHAR</td><td>matches customer&#x27;s <code>home_state</code></td></tr>
+<tr><td><code>vehicle_type</code></td><td>VARCHAR</td><td><code>car</code> (70%) / <code>suv</code> (20%) / <code>motorcycle</code> (5%) / <code>light_truck</code> (4%) / <code>heavy_truck</code> (1%)</td></tr>
+<tr><td><code>tag_type</code></td><td>VARCHAR</td><td>correlated to the customer&#x27;s <code>account_type</code>: <code>etag</code> → <code>etag_transponder</code>, <code>video_tolling</code> → <code>video_matched</code>, <code>visitor_pass</code> → <code>none</code></td></tr>
+<tr><td><code>date_added</code></td><td>DATE</td><td></td></tr>
+<tr><td><code>is_active</code></td><td>BOOLEAN</td><td>~95% true</td></tr>
+</tbody></table>
+<p><code>individual</code> customers get 1 vehicle (rarely 2, 8% chance). <code>small_business</code> customers get a fleet of 2–8. This is the second table a colleague has to join in Module 2 — teaches multi-table SCV construction without needing a second warehouse.</p>
+<h2>GANTRIES (48 rows, hand-authored, not generated)</h2>
+<p>Fixed reference data — TollWay&#x27;s fictional road network. No script generates this; it&#x27;s authored directly in <code>mock-data/seed-data/gantries.csv</code> and never changes between re-generations.</p>
+<table><thead><tr><th>Column</th><th>Type</th><th>Notes</th></tr></thead><tbody>
+<tr><td><code>gantry_id</code></td><td>VARCHAR PK</td><td><code>ht101_tw_gan_0001</code> … <code>ht101_tw_gan_0048</code></td></tr>
+<tr><td><code>road_name</code></td><td>VARCHAR</td><td>fictional (e.g. Skyline Freeway, Harbourlink Tunnel) — see <a class="docref" href="inconsistencies.html"><code>inconsistencies.md</code></a></td></tr>
+<tr><td><code>locality</code></td><td>VARCHAR</td><td>suburb</td></tr>
+<tr><td><code>state</code></td><td>VARCHAR</td><td><code>NSW</code> / <code>VIC</code> / <code>QLD</code> only</td></tr>
+<tr><td><code>gantry_type</code></td><td>VARCHAR</td><td><code>mainline</code> / <code>ramp</code></td></tr>
+<tr><td><code>base_rate_per_km</code></td><td>NUMBER(6,2)</td><td>used by <code>generate_trips.py</code> to derive <code>TRIPS.toll_amount</code></td></tr>
+</tbody></table>
+<h2>TRIPS (10,000 rows, fixed exact total)</h2>
+<p>One row per toll-gantry charge event — matches how real toll operators actually bill (per gantry passed, not per point-A-to-B journey).</p>
+<table><thead><tr><th>Column</th><th>Type</th><th>Notes</th></tr></thead><tbody>
+<tr><td><code>trip_id</code></td><td>VARCHAR PK</td><td><code>ht101_tw_trip_0000001</code> … <code>_0010000</code></td></tr>
+<tr><td><code>customer_id</code></td><td>VARCHAR FK → <code>CUSTOMERS</code></td><td></td></tr>
+<tr><td><code>vehicle_id</code></td><td>VARCHAR FK → <code>VEHICLES</code></td><td>always one of that customer&#x27;s own vehicles</td></tr>
+<tr><td><code>gantry_id</code></td><td>VARCHAR FK → <code>GANTRIES</code></td><td>75% chance it&#x27;s in the customer&#x27;s home state, 25% chance any state (interstate travel)</td></tr>
+<tr><td><code>trip_datetime</code></td><td>TIMESTAMP_NTZ</td><td>last 12 months, AM/PM peak-hour humps (7–9am / 4–6pm, 40/40/20 split vs. off-peak)</td></tr>
+<tr><td><code>distance_km</code></td><td>NUMBER(6,2)</td><td>2–15 km per gantry segment</td></tr>
+<tr><td><code>vehicle_class</code></td><td>VARCHAR</td><td><code>light</code> / <code>heavy</code> — derived from the chosen vehicle&#x27;s <code>vehicle_type</code>, not independently random</td></tr>
+<tr><td><code>toll_amount</code></td><td>NUMBER(8,2)</td><td><code>distance_km × GANTRIES.base_rate_per_km × class_multiplier</code> (heavy = 2.5×, light = 1×)</td></tr>
+<tr><td><code>payment_status</code></td><td>VARCHAR</td><td><code>charged</code> (92%) / <code>pending</code> (5%) / <code>failed</code> (3%)</td></tr>
+</tbody></table>
+<p><strong>Volume distribution</strong>: ~12% of customers get exactly zero trips. The rest draw a weight from a loyalty-tier-scaled Gamma distribution (gold accounts skew toward far more trips than bronze), then all 10,000 rows are assigned via a weighted lottery — guarantees the total is exactly 10,000 while producing a realistic long-tail skew. See <code>generate_trips.py</code> docstring for the exact parameters.</p>
+<h2>TOPUPS (5,879 rows with default seed; varies by seed)</h2>
+<p>Payment/recharge transaction history. Not introduced until Module 4 (low-balance use case).</p>
+<table><thead><tr><th>Column</th><th>Type</th><th>Notes</th></tr></thead><tbody>
+<tr><td><code>topup_id</code></td><td>VARCHAR PK</td><td><code>ht101_tw_topup_0000001</code> …</td></tr>
+<tr><td><code>customer_id</code></td><td>VARCHAR FK → <code>CUSTOMERS</code></td><td></td></tr>
+<tr><td><code>topup_datetime</code></td><td>TIMESTAMP_NTZ</td><td>last 12 months</td></tr>
+<tr><td><code>amount</code></td><td>NUMBER(8,2)</td><td>common tiers $20/$40/$60/$100 (85%), custom amount otherwise</td></tr>
+<tr><td><code>topup_method</code></td><td>VARCHAR</td><td><code>auto_recharge</code> / <code>manual_card</code> / <code>manual_bank</code> / <code>cash_retail</code></td></tr>
+<tr><td><code>status</code></td><td>VARCHAR</td><td><code>success</code> (95% baseline) / <code>failed</code> (5% baseline)</td></tr>
+</tbody></table>
+<p><strong>Seeded cohort</strong>: ~8% of customers (<code>--low-balance-pct</code>, default 0.08) get a manufactured pattern — a couple of older successful top-ups, then only failed attempts in the trailing 30 days, no success since. Guarantees Module 4&#x27;s low-balance segment has a stable population. See <a class="docref" href="inconsistencies.html"><code>inconsistencies.md</code></a>.</p>
+<h2>SUPPORT_TICKETS (374 rows with default seed; varies by seed)</h2>
+<p>Not introduced until Module 4 (suppression use case).</p>
+<table><thead><tr><th>Column</th><th>Type</th><th>Notes</th></tr></thead><tbody>
+<tr><td><code>ticket_id</code></td><td>VARCHAR PK</td><td><code>ht101_tw_ticket_000001</code> …</td></tr>
+<tr><td><code>customer_id</code></td><td>VARCHAR FK → <code>CUSTOMERS</code></td><td></td></tr>
+<tr><td><code>opened_datetime</code></td><td>TIMESTAMP_NTZ</td><td></td></tr>
+<tr><td><code>closed_datetime</code></td><td>TIMESTAMP_NTZ, nullable</td><td>only set when <code>status = &#x27;closed&#x27;</code></td></tr>
+<tr><td><code>status</code></td><td>VARCHAR</td><td><code>closed</code> (80% baseline) / <code>open</code> (15% baseline) / <code>escalated</code> (5% baseline)</td></tr>
+<tr><td><code>category</code></td><td>VARCHAR</td><td><code>billing_dispute</code> / <code>tag_fault</code> / <code>account_access</code> / <code>general_enquiry</code> / <code>toll_notice_dispute</code></td></tr>
+<tr><td><code>channel</code></td><td>VARCHAR</td><td><code>phone</code> / <code>email</code> / <code>app</code> / <code>web_form</code></td></tr>
+<tr><td><code>priority</code></td><td>VARCHAR</td><td><code>low</code> / <code>medium</code> / <code>high</code></td></tr>
+</tbody></table>
+<p><strong>Seeded cohort</strong>: ~6% of customers (<code>--open-ticket-pct</code>, default 0.06) are guaranteed a currently-open ticket opened in the last 14 days. Guarantees Module 4&#x27;s suppression segment has a stable population.</p>
+<h2>Module 5 addition (not yet built)</h2>
+<p>Module 5 (&quot;closing the loop&quot;) will add an engagement table — Braze Canvas send/open/click events synced back via Currents/Data Share — that doesn&#x27;t exist yet as of this dictionary version. It&#x27;ll be documented here once Module 5&#x27;s lesson content is built out.</p>
+</main>
+</div>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'dark',
+    flowchart: { useMaxWidth: false },
+    er: { useMaxWidth: false },
+    themeVariables: {
+      background: '#1A1A2E',
+      primaryColor: '#1A1A2E',
+      primaryTextColor: '#ffffff',
+      primaryBorderColor: '#2a2a44',
+      lineColor: '#6C5CE7',
+      secondaryColor: '#1A1A2E',
+      tertiaryColor: '#1A1A2E',
+      fontFamily: 'Poppins, sans-serif',
+      fontSize: '18px'
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+# Generated mock data — regenerate via mock-data/generate_*.py, don't hand-edit or commit
+business-packs/tollway/mock-data/out/*.csv
+
+# OS / editor cruft
+.DS_Store
+__pycache__/
+*.pyc

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 2 — Single Customer View · Hightouch 101</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+
+:root{
+  --bg:#0D0D1A;--card:#1A1A2E;--line:#2a2a44;--txt:#ffffff;
+  --muted:#cfd0e0;--purple:#6C5CE7;--cyan:#00D4FF;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--txt);font-family:Poppins,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+.shell{display:flex;min-height:100vh}
+.sidebar{width:260px;flex:0 0 260px;background:var(--card);border-right:1px solid var(--line);padding:22px 18px;position:sticky;top:0;height:100vh;overflow-y:auto}
+.brand{font-size:15px;font-weight:700;margin-bottom:18px;line-height:1.4}
+.brand .eyebrow{font-size:10.5px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--purple)}
+.navgroup{margin-bottom:16px}
+.navgroup .gh{font-size:10.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin:14px 0 6px}
+.navgroup a{display:block;color:var(--muted);text-decoration:none;font-size:13px;padding:5px 8px;border-radius:7px;margin-bottom:1px}
+.navgroup a:hover{background:rgba(255,255,255,.05);color:var(--txt)}
+.navgroup a.active{background:rgba(108,92,231,.18);color:var(--cyan);font-weight:600}
+main.page-content{flex:1;max-width:1300px;padding:36px 48px 80px}
+main.page-content h1{font-size:30px;font-weight:700;letter-spacing:-.3px;margin:0 0 18px;max-width:900px}
+main.page-content h2{font-size:19px;font-weight:600;margin:32px 0 12px;color:var(--cyan);max-width:900px}
+main.page-content h3{font-size:16px;font-weight:600;margin:22px 0 8px;max-width:900px}
+main.page-content h4{font-size:14px;font-weight:600;margin:18px 0 6px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;max-width:900px}
+main.page-content p{max-width:820px;color:var(--muted);margin:0 0 14px;font-size:15px}
+main.page-content strong{color:var(--txt)}
+main.page-content ul,main.page-content ol{max-width:820px;color:var(--muted);margin:0 0 14px;padding-left:24px;font-size:15px}
+main.page-content li{margin-bottom:6px}
+main.page-content li p{margin:0 0 6px}
+main.page-content code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:5px;font-size:13px;color:var(--cyan);font-family:'SF Mono',Consolas,monospace}
+main.page-content a.docref{text-decoration:none}
+main.page-content a.docref code{color:var(--cyan);text-decoration:underline;text-decoration-color:rgba(0,212,255,.4)}
+main.page-content pre{background:#0a0a18;border:1px solid var(--line);border-radius:10px;padding:16px 18px;overflow-x:auto;margin:0 0 16px;max-width:1100px}
+main.page-content pre code{background:none;padding:0;color:var(--txt);font-size:13.5px;line-height:1.55}
+main.page-content table{border-collapse:collapse;width:100%;max-width:1100px;margin:0 0 20px;font-size:14px}
+main.page-content th{text-align:left;font-size:11px;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);padding:0 14px 10px 0;border-bottom:1px solid var(--line)}
+main.page-content td{padding:10px 14px 10px 0;border-bottom:1px solid rgba(255,255,255,.05);color:var(--muted);vertical-align:top}
+main.page-content .mermaid{width:100%;display:flex;justify-content:center;margin:20px 0 28px;overflow-x:auto}
+main.page-content .mermaid svg{max-width:100% !important;height:auto !important}
+.home-hero{max-width:820px;margin-bottom:30px}
+.home-hero .eyebrow{font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--purple);margin-bottom:6px}
+.home-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;max-width:1300px}
+.home-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.home-card h3{margin-top:0;color:var(--txt);font-size:15px}
+.home-card ul{margin:0;padding-left:20px}
+.home-card a{color:var(--cyan);text-decoration:none;font-size:14px}
+.home-card a:hover{text-decoration:underline}
+.home-card li{margin-bottom:5px}
+@media(max-width:900px){
+  .shell{flex-direction:column}
+  .sidebar{width:100%;flex:none;position:relative;height:auto}
+  main.page-content{padding:24px 20px}
+  .home-grid{grid-template-columns:1fr}
+}
+
+</style>
+</head>
+<body>
+<div class="shell">
+<aside class="sidebar">
+  <div class="brand"><span class="eyebrow">Hightouch 101</span><br>TollWay</div>
+  <nav>
+    <a href="../../index.html" class="">Home</a>
+  <div class="navgroup"><div class="gh">Course</div>
+    <a href="../../course/syllabus.html" class="">Syllabus</a>
+    <a href="../../course/diagrams/architecture-overview.html" class="">Generic Architecture</a>
+    <a href="../../course/diagrams/course-flow.html" class="">Generic Course Flow</a>
+    <a href="../../course/recipes/hightouch-model-recipes.html" class="">Hightouch Model Recipes</a>
+    <a href="../../course/recipes/hightouch-sync-recipes.html" class="">Hightouch Sync Recipes</a>
+    <a href="../../course/recipes/braze-canvas-recipes.html" class="">Braze Canvas Recipes</a>
+    <a href="../../course/reset/index.html" class="">Reset — Index</a>
+    <a href="../../course/reset/warehouse-reset-template.html" class="">Warehouse Reset Template</a>
+    <a href="../../course/reset/hightouch-braze-checklist-template.html" class="">Hightouch + Braze Checklist Template</a>
+  </div>
+  <div class="navgroup"><div class="gh">TollWay</div>
+    <a href="../brief.html" class="">Business Brief</a>
+    <a href="../use-cases.html" class="">Use Cases</a>
+    <a href="../reset/reset-tollway-checklist.html" class="">TollWay Reset Checklist</a>
+  </div>
+  <div class="navgroup"><div class="gh">TollWay Dictionary</div>
+    <a href="../dictionary/index.html" class="">Dictionary — Index</a>
+    <a href="../dictionary/tables.html" class="">Table Dictionary</a>
+    <a href="../dictionary/relationships.html" class="">Relationships &amp; Diagrams</a>
+    <a href="../dictionary/cheatsheet.html" class="">Diagnostic Cheatsheet</a>
+    <a href="../dictionary/inconsistencies.html" class="">Known Deviations</a>
+  </div>
+  <div class="navgroup"><div class="gh">TollWay Lessons</div>
+    <a href="01-cdp-standup.html" class="">Lesson 1 — Stand Up the CDP</a>
+    <a href="02-single-customer-view.html" class="active">Lesson 2 — Single Customer View</a>
+    <a href="03-destinations.html" class="">Lesson 3 — Destinations (roadmap)</a>
+    <a href="04-segments-and-activation.html" class="">Lesson 4 — Segments + Activation (roadmap)</a>
+    <a href="05-closing-the-loop.html" class="">Lesson 5 — Closing the Loop (roadmap)</a>
+  </div>
+  </nav>
+</aside>
+<main class="page-content">
+<h1>Lesson 2 — Single Customer View</h1>
+<p><strong>Module 2 · Deep dive · ~75–90 min</strong></p>
+<h2>Before this lesson</h2>
+<p>Lesson 1 complete: Snowflake source connected, raw <code>Customers</code> and <code>Trips</code> SQL models built and verified. This lesson adds a raw <code>Vehicles</code> model, then builds the same single customer view two ways.</p>
+<h2>Learning objectives</h2>
+<p>By the end, the colleague should be able to:</p>
+<ol>
+<li><p>Build a unified customer profile using Hightouch <strong>Customer Studio</strong> identity resolution.</p></li>
+<li><p>Build the same profile using a <strong>hand-written SQL model</strong>.</p></li>
+<li><p>Explain when each approach is the better choice.</p></li>
+</ol>
+<h2>1. Add the Vehicles raw model (5 min)</h2>
+<p>Same pattern as Lesson 1: <strong>Models → Add model → SQL model</strong>, <code>SELECT * FROM DEMO_DB.HT101_TW.VEHICLES</code>, save as <code>TollWay - Vehicles (raw)</code>. Expected row count is 1,407 with the default seed (varies if regenerated with a different <code>--seed</code>) — check against the count from <a class="docref" href="../dictionary/cheatsheet.html"><code>../dictionary/cheatsheet.md</code></a>&#x27;s row-count query, not a fixed number.</p>
+<h2>2. Path A — Customer Studio identity resolution (30–35 min)</h2>
+<ol>
+<li><p>Go to <strong>Customer Studio → Identity Resolution</strong> (or equivalent setup wizard, naming varies by Hightouch version).</p></li>
+<li><p>Set the <strong>primary source</strong> to <code>TollWay - Customers (raw)</code>, keyed on <code>customer_id</code>. This is the spine — every other source joins onto this identity.</p></li>
+<li><p>Add <strong>related sources</strong>:</p>
+<ul>
+<li><p><code>TollWay - Vehicles (raw)</code>, joined on <code>customer_id</code>.</p></li>
+<li><p><code>TollWay - Trips (raw)</code>, joined on <code>customer_id</code>.</p></li>
+</ul></li>
+<li><p>Let Hightouch build the <strong>Unified Profile schema</strong>. Review what it inferred — check whether it surfaced derived counts (vehicle count, trip count) automatically or whether those need to be added as calculated traits.</p></li>
+<li><p>Open one customer&#x27;s unified profile (pick <code>ht101_tw_cust_000001</code> or any known ID) and note what it shows: identity fields from <code>CUSTOMERS</code>, a list/count of related <code>VEHICLES</code> rows, a list/count of related <code>TRIPS</code> rows.</p></li>
+</ol>
+<p>📸 <strong>Screenshot checkpoint</strong>: the Identity Resolution source graph (Customers as primary, Vehicles and Trips as related sources).</p>
+<p>📸 <strong>Screenshot checkpoint</strong>: one customer&#x27;s Unified Profile view.</p>
+<h2>3. Path B — hand-written SQL model (25–30 min)</h2>
+<ol>
+<li><p><strong>Models → Add model → SQL model</strong>, source = Snowflake source.</p></li>
+<li><p>Use the single-customer-view pattern from <a class="docref" href="../../course/recipes/hightouch-model-recipes.html"><code>../../course/recipes/hightouch-model-recipes.md</code></a> (aggregate <code>TRIPS</code> and <code>VEHICLES</code> into CTEs, left join onto <code>CUSTOMERS</code>):</p>
+<pre><code class="language-sql">WITH trip_agg AS (
+  SELECT customer_id, COUNT(*) AS trip_count, SUM(toll_amount) AS lifetime_spend, MAX(trip_datetime) AS last_trip_at
+  FROM DEMO_DB.HT101_TW.TRIPS
+  GROUP BY customer_id
+),
+vehicle_agg AS (
+  SELECT customer_id, COUNT(*) AS vehicle_count
+  FROM DEMO_DB.HT101_TW.VEHICLES
+  GROUP BY customer_id
+)
+SELECT
+  c.*,
+  COALESCE(t.trip_count, 0) AS trip_count,
+  COALESCE(t.lifetime_spend, 0) AS lifetime_spend,
+  t.last_trip_at,
+  COALESCE(v.vehicle_count, 0) AS vehicle_count
+FROM DEMO_DB.HT101_TW.CUSTOMERS c
+LEFT JOIN trip_agg t ON t.customer_id = c.customer_id
+LEFT JOIN vehicle_agg v ON v.customer_id = c.customer_id</code></pre>
+<p>Fully qualified with database and schema — <code>DEMO_DB</code> has other schemas (e.g. <code>DEMO_DATA</code>) a bare table name could resolve into by mistake.</p></li>
+<li><p>Run it. Save as <code>TollWay - Single Customer View (SQL)</code>.</p></li>
+<li><p>Look up the same customer (<code>ht101_tw_cust_000001</code>) in this model&#x27;s output and compare the <code>trip_count</code>/<code>vehicle_count</code>/<code>lifetime_spend</code> numbers against what Customer Studio showed in Path A, and against the ground-truth query in <a class="docref" href="../dictionary/cheatsheet.html"><code>../dictionary/cheatsheet.md</code></a> (&quot;A single customer&#x27;s full profile&quot;). All three should agree.</p></li>
+</ol>
+<p>📸 <strong>Screenshot checkpoint</strong>: the SQL model&#x27;s preview for <code>ht101_tw_cust_000001</code>, side by side (mentally or in two browser tabs) with the Customer Studio profile from Path A.</p>
+<h2>4. Compare the two paths (10 min discussion)</h2>
+<table><thead><tr><th></th><th>Customer Studio</th><th>SQL model</th></tr></thead><tbody>
+<tr><td>Speed to build</td><td>Faster — wizard-driven, no SQL to write</td><td>Slower — write and debug the join/aggregation yourself</td></tr>
+<tr><td>Governance</td><td>Built-in guardrails, consistent unified schema across the workspace</td><td>No guardrails — whatever you write is what you get</td></tr>
+<tr><td>Transparency</td><td>Some logic is implicit (how it resolves/merges is partly abstracted)</td><td>Fully transparent — every join and aggregation is visible in the SQL</td></tr>
+<tr><td>Best for</td><td>Fast identity resolution across many sources, especially when non-technical teammates need to browse profiles</td><td>Precise control over a specific derived metric, or when the exact aggregation logic needs to be auditable</td></tr>
+</tbody></table>
+<p>Neither path is &quot;the right one&quot; — real Hightouch usage mixes both. Segments in Module 4 can be built off either the Customer Studio unified profile or a SQL model; the choice depends on whether the segment&#x27;s condition needs Customer Studio&#x27;s visual builder or a calculation that&#x27;s easier to express directly in SQL.</p>
+<h2>5. Wrap-up + roadmap preview (10 min)</h2>
+<ul>
+<li><p>Recap: two working single-customer-view builds, cross-checked against a ground-truth query.</p></li>
+<li><p>Preview modules 3–5 at roadmap level (see <a class="docref" href="../../course/syllabus.html"><code>../../course/syllabus.md</code></a> and <a class="docref" href="../../course/diagrams/course-flow.html"><code>../../course/diagrams/course-flow.md</code></a>):</p>
+<ul>
+<li><p>Module 3: wire up Braze and a Snowflake write-back destination.</p></li>
+<li><p>Module 4: build the loyalty-upsell segment (UC1) and send it to Braze; then the low-balance (UC2) and complaint-suppression (UC3) use cases.</p></li>
+<li><p>Module 5: close the loop — Braze engagement data flows back to Snowflake, gets re-queried in Hightouch, builds a smarter follow-up segment.</p></li>
+</ul></li>
+<li><p>These become full lesson docs in later sessions — see the roadmap stubs in <a class="docref" href="03-destinations.html"><code>03-destinations.md</code></a>, <a class="docref" href="04-segments-and-activation.html"><code>04-segments-and-activation.md</code></a>, <a class="docref" href="05-closing-the-loop.html"><code>05-closing-the-loop.md</code></a>.</p></li>
+</ul>
+</main>
+</div>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'dark',
+    flowchart: { useMaxWidth: false },
+    er: { useMaxWidth: false },
+    themeVariables: {
+      background: '#1A1A2E',
+      primaryColor: '#1A1A2E',
+      primaryTextColor: '#ffffff',
+      primaryBorderColor: '#2a2a44',
+      lineColor: '#6C5CE7',
+      secondaryColor: '#1A1A2E',
+      tertiaryColor: '#1A1A2E',
+      fontFamily: 'Poppins, sans-serif',
+      fontSize: '18px'
+    }
+  });
+</script>
+</body>
+</html>
