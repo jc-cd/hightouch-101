@@ -36,5 +36,10 @@ through both in one sitting.
 
 ## Later sessions
 
-Modules 3–5 get full lesson-doc treatment (concrete click paths, screenshot checkpoints) once
-scheduled. They currently exist only as roadmap stubs in the business pack's `lessons/` folder.
+Modules 3–5 now have full lesson-doc treatment (concrete click paths, screenshot checkpoints) in
+the business pack's `lessons/` folder — Lesson 1 only *previews* them at roadmap level; running
+them for real is later-session material, each substantial enough to warrant its own sitting:
+Module 3 (~45–60 min), Module 4 (~120–150 min — the longest lesson, real Braze segment/Canvas
+builds for all three use cases, worth splitting across two sittings), Module 5 (~60–75 min, plus
+lead time to get a Braze Data Share provisioned before it can run at all — see the lesson doc's
+"Before this lesson" note).

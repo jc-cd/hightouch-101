@@ -1,7 +1,8 @@
 # Architecture Overview (generic)
 
 ```mermaid
-flowchart LR
+%%{init: {"themeVariables": {"fontSize": "24px"}}}%%
+flowchart TB
     subgraph Sources
         A[Warehouse source A]
         B[Warehouse source B]

@@ -13,19 +13,14 @@ click through Hightouch or Braze (that's in `../lessons/`).
 | `cheatsheet.md` | Diagnostic queries reused across lessons — row counts, cohort checks, customer lookups. |
 | `inconsistencies.md` | Deliberate deviations from realism/house convention, documented so nobody mistakes them for bugs. |
 
-## Presenting live — overview.html
+## Presenting live — the generated site
 
-`../overview.html` is the colleague-facing orientation page for Lesson 1 — open it directly in a
-browser (no build step, no server) and put it on the screen at the start of the session. It
-covers the business scenario, the 6-table dataset with real row counts, today's agenda, the 4
-use cases, and the same four diagrams from `relationships.md` (course flow, architecture, ERD,
-closing-the-loop), rendered large. Styled after `internal/pulse-health-console/report.html`'s
-card/KPI-grid/badge system, which itself matches `internal/amperity-101/`'s color palette.
-
-If a diagram's Mermaid source changes, update `relationships.md` first and mirror the change
-into `overview.html` — the `.md` file is the source of truth, the `.html` file is a presentation
-view of it. Same rule for row counts, use-case descriptions, and agenda timing: `tables.md`,
-`use-cases.md`, and `course/syllabus.md` are canonical, `overview.html` mirrors them.
+`../../tools/build_site.py` generates a browsable multi-page site from this dictionary plus every
+other `.md` doc in the course/pack, output to `../../docs/` (published at
+https://jc-cd.github.io/hightouch-101/). This dictionary's diagrams render on the site's
+"Relationships & Diagrams" page straight from `relationships.md`'s Mermaid source — no manual
+mirroring into a separate HTML file anymore. Rerun the generator after editing any doc:
+`python3 ../../tools/build_site.py`.
 
 ## Source of truth hierarchy
 

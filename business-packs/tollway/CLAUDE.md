@@ -46,8 +46,9 @@ modifies them, outputs to `../../docs/`). Rerun the generator after editing any 
   `CUSTOMERS` 1,000 / `VEHICLES` 1,407 / `GANTRIES` 48 / `TRIPS` 10,000 / `TOPUPS` 5,879 /
   `SUPPORT_TICKETS` 374. `mock-data/load/load_snowflake.sql` is kept as the canonical reference
   schema and fallback path, not what actually ran.
-- Modules 1–2 lessons: full depth, ready for 2026-07-14 lesson 1.
-- Modules 3–5 lessons: roadmap stubs only, full depth deferred to a later session.
+- All 5 modules' lessons are now full depth. Lesson 1 (2026-07-14) still only *previews*
+  Modules 3–5 at roadmap level — running them for real is later-session material. Module 5
+  additionally needs a Braze Data Share provisioned ahead of time; see that lesson's opening note.
 - Not yet done: connecting the Hightouch sandbox to `DEMO_DB.HT101_TW` as a source (Lesson 1,
   step 2) — first live test of that connection is either a pre-lesson dry run or happens live
   with the colleague tomorrow.

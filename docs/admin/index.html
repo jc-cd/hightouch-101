@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Generic Architecture · Hightouch 101</title>
+<title>Admin · Hightouch 101</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
@@ -86,52 +86,25 @@ main.page-content .mermaid svg{max-width:100% !important;height:auto !important}
 <div class="shell">
 <aside class="sidebar">
   <div class="brand"><span class="eyebrow">Hightouch 101</span>TollWay<span class="brandsub">Training Site</span></div>
-  <a class="homebtn" href="../../index.html">&larr; All lessons &amp; reference</a>
+  <a class="homebtn" href="../index.html">&larr; All lessons &amp; reference</a>
   <nav>
-  <div class="navgroup lessons"><div class="gh"><span class="ic">▸</span>Lessons<span class="count">5</span></div>
-    <a href="../../tollway/lessons/01-cdp-standup.html" class="">Lesson 1 — Stand Up the CDP</a>
-    <a href="../../tollway/lessons/02-single-customer-view.html" class="">Lesson 2 — Single Customer View</a>
-    <a href="../../tollway/lessons/03-destinations.html" class="">Lesson 3 — Destinations</a>
-    <a href="../../tollway/lessons/04-segments-and-activation.html" class="">Lesson 4 — Segments + Activation</a>
-    <a href="../../tollway/lessons/05-closing-the-loop.html" class="">Lesson 5 — Closing the Loop</a>
-  </div>
-  <div class="navgroup reference"><div class="gh"><span class="ic">❖</span>Reference<span class="count">6</span></div>
-    <a href="../../tollway/brief.html" class="">Business Brief</a>
-    <a href="../../tollway/use-cases.html" class="">Use Cases</a>
-    <a href="../../tollway/dictionary/tables.html" class="">Table Dictionary</a>
-    <a href="../../tollway/dictionary/relationships.html" class="">Relationships &amp; Diagrams</a>
-    <a href="../../tollway/dictionary/cheatsheet.html" class="">Diagnostic Cheatsheet</a>
-    <a href="../../tollway/dictionary/inconsistencies.html" class="">Known Deviations</a>
-  </div>
-  <div class="navgroup coursenotes"><div class="gh"><span class="ic">⚙</span>Course Notes<span class="count">6</span></div>
-    <a href="../syllabus.html" class="">Syllabus</a>
-    <a href="architecture-overview.html" class="active">Generic Architecture</a>
-    <a href="course-flow.html" class="">Generic Course Flow</a>
-    <a href="../recipes/hightouch-model-recipes.html" class="">Hightouch Model Recipes</a>
-    <a href="../recipes/hightouch-sync-recipes.html" class="">Hightouch Sync Recipes</a>
-    <a href="../recipes/braze-canvas-recipes.html" class="">Braze Canvas Recipes</a>
+  <div class="navgroup reset"><div class="gh"><span class="ic">■</span>Reset<span class="count">4</span></div>
+    <a href="course-reset/index.html" class="">Reset — Index</a>
+    <a href="course-reset/warehouse-reset-template.html" class="">Warehouse Reset Template</a>
+    <a href="course-reset/hightouch-braze-checklist-template.html" class="">Hightouch + Braze Checklist Template</a>
+    <a href="tollway-reset/reset-tollway-checklist.html" class="">TollWay Reset Checklist</a>
   </div>
   </nav>
 </aside>
 <main class="page-content">
+<div class="admin-banner">Internal — not part of the lesson flow. Not linked from the student site.</div>
 
-<h1>Generic Architecture</h1>
-<div class="mermaid">
-%%{init: {"themeVariables": {"fontSize": "24px"}}}%%
-flowchart TB
-    subgraph Sources
-        A[Warehouse source A]
-        B[Warehouse source B]
-    end
+<h1>Admin — Reset &amp; Teardown</h1>
+<p>Not part of the student lesson flow. These are the manual reset checklists for wiping the
+shared Hightouch/Braze/Snowflake sandbox between learners — see <code>course/reset/README.md</code>
+in the repo for why this is a manual checklist rather than a script.</p>
+<div class="home-grid"><div class="home-card reset"><h3>Reset checklists</h3><ul><li><a href="course-reset/index.html">Reset — Index</a></li><li><a href="course-reset/warehouse-reset-template.html">Warehouse Reset Template</a></li><li><a href="course-reset/hightouch-braze-checklist-template.html">Hightouch + Braze Checklist Template</a></li><li><a href="tollway-reset/reset-tollway-checklist.html">TollWay Reset Checklist</a></li></ul></div></div>
 
-    Sources --&gt;|connect| HT[Hightouch]
-    HT --&gt;|SQL model / Customer Studio| SCV[Single Customer View]
-    SCV --&gt;|segment + sync| D1[Destination 1 — e.g. Braze]
-    SCV --&gt;|reverse-ETL sync| D2[Destination 2 — e.g. warehouse write-back]
-
-    style HT fill:#1A1A2E,stroke:#2a2a44,color:#fff
-</div>
-<p>This is the shape every business pack instantiates with real table/object names — see the pack&#x27;s <a class="docref" href="../../tollway/dictionary/relationships.html"><code>dictionary/relationships.md</code></a> for the concrete version (e.g. TollWay&#x27;s uses one Snowflake source, no Source B, since BigQuery is out of scope for v1).</p>
 </main>
 </div>
 <script>

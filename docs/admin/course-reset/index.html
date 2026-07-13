@@ -11,19 +11,32 @@
 
 :root{
   --bg:#0D0D1A;--card:#1A1A2E;--line:#2a2a44;--txt:#ffffff;
-  --muted:#cfd0e0;--purple:#6C5CE7;--cyan:#00D4FF;
+  --muted:#cfd0e0;--purple:#6C5CE7;--cyan:#00D4FF;--green:#2ecc71;
+  --amber:#f1a33c;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--txt);font-family:Poppins,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
 .shell{display:flex;min-height:100vh}
-.sidebar{width:260px;flex:0 0 260px;background:var(--card);border-right:1px solid var(--line);padding:22px 18px;position:sticky;top:0;height:100vh;overflow-y:auto}
-.brand{font-size:15px;font-weight:700;margin-bottom:18px;line-height:1.4}
-.brand .eyebrow{font-size:10.5px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--purple)}
-.navgroup{margin-bottom:16px}
-.navgroup .gh{font-size:10.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin:14px 0 6px}
-.navgroup a{display:block;color:var(--muted);text-decoration:none;font-size:13px;padding:5px 8px;border-radius:7px;margin-bottom:1px}
+
+.sidebar{width:272px;flex:0 0 272px;background:linear-gradient(180deg,#161629,var(--card));border-right:1px solid var(--line);padding:24px 16px;position:sticky;top:0;height:100vh;overflow-y:auto}
+.brand{font-size:17px;font-weight:700;margin-bottom:14px;line-height:1.3;padding:0 6px}
+.brand .eyebrow{display:block;font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--purple);margin-bottom:2px}
+.brand .brandsub{display:block;font-size:11px;font-weight:400;color:var(--muted);margin-top:2px}
+.homebtn{display:block;font-size:12px;color:var(--muted);text-decoration:none;border:1px solid var(--line);border-radius:9px;padding:8px 12px;margin:0 4px 18px;text-align:center}
+.homebtn:hover{border-color:var(--cyan);color:var(--cyan)}
+
+.navgroup{margin:0 0 20px;padding:2px 0 2px 14px;border-left:2px solid rgba(255,255,255,.08)}
+.navgroup.lessons{--gc:var(--cyan);--gcbg:rgba(0,212,255,.14)}
+.navgroup.reference{--gc:var(--purple);--gcbg:rgba(108,92,231,.16)}
+.navgroup.coursenotes{--gc:var(--amber);--gcbg:rgba(241,163,60,.14)}
+.navgroup.reset{--gc:#e05a5a;--gcbg:rgba(224,90,90,.15)}
+.navgroup .gh{display:flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;color:var(--gc);margin:0 0 8px}
+.navgroup .gh .ic{font-size:11px}
+.navgroup .gh .count{margin-left:auto;background:var(--gcbg);color:var(--gc);font-size:10px;font-weight:700;border-radius:999px;padding:1px 7px}
+.navgroup a{display:block;color:var(--muted);text-decoration:none;font-size:13.5px;padding:6px 10px;border-radius:8px;margin-bottom:2px;border-left:3px solid transparent}
 .navgroup a:hover{background:rgba(255,255,255,.05);color:var(--txt)}
-.navgroup a.active{background:rgba(108,92,231,.18);color:var(--cyan);font-weight:600}
+.navgroup a.active{background:var(--gcbg);color:var(--txt);font-weight:600;border-left:3px solid var(--gc);margin-left:-3px;padding-left:10px}
+
 main.page-content{flex:1;max-width:1300px;padding:36px 48px 80px}
 main.page-content h1{font-size:30px;font-weight:700;letter-spacing:-.3px;margin:0 0 18px;max-width:900px}
 main.page-content h2{font-size:19px;font-weight:600;margin:32px 0 12px;color:var(--cyan);max-width:900px}
@@ -44,15 +57,22 @@ main.page-content th{text-align:left;font-size:11px;letter-spacing:.8px;text-tra
 main.page-content td{padding:10px 14px 10px 0;border-bottom:1px solid rgba(255,255,255,.05);color:var(--muted);vertical-align:top}
 main.page-content .mermaid{width:100%;display:flex;justify-content:center;margin:20px 0 28px;overflow-x:auto}
 main.page-content .mermaid svg{max-width:100% !important;height:auto !important}
-.home-hero{max-width:820px;margin-bottom:30px}
-.home-hero .eyebrow{font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--purple);margin-bottom:6px}
-.home-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;max-width:1300px}
-.home-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
-.home-card h3{margin-top:0;color:var(--txt);font-size:15px}
-.home-card ul{margin:0;padding-left:20px}
-.home-card a{color:var(--cyan);text-decoration:none;font-size:14px}
-.home-card a:hover{text-decoration:underline}
-.home-card li{margin-bottom:5px}
+
+.admin-banner{max-width:1100px;background:rgba(224,90,90,.12);border:1px solid rgba(224,90,90,.4);color:#f0a5a5;border-radius:10px;padding:10px 16px;font-size:13px;font-weight:600;margin-bottom:24px}
+
+.hero{max-width:820px;margin-bottom:14px}
+.hero .eyebrow{font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--purple);margin-bottom:6px}
+.hero p{font-size:16px}
+.cta{display:inline-block;background:var(--purple);color:#fff;text-decoration:none;font-weight:600;font-size:15px;padding:13px 26px;border-radius:11px;margin:10px 0 34px}
+.cta:hover{opacity:.88}
+.home-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1300px}
+.home-card{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--gc);border-radius:14px;padding:18px 20px}
+.home-card h3{margin:0 0 12px;color:var(--txt);font-size:14px;display:flex;align-items:center;gap:6px;letter-spacing:.4px;text-transform:uppercase}
+.home-card ul{margin:0;padding-left:18px}
+.home-card a{color:var(--muted);text-decoration:none;font-size:14px}
+.home-card a:hover{color:var(--cyan);text-decoration:underline}
+.home-card li{margin-bottom:6px}
+
 @media(max-width:900px){
   .shell{flex-direction:column}
   .sidebar{width:100%;flex:none;position:relative;height:auto}
@@ -65,42 +85,19 @@ main.page-content .mermaid svg{max-width:100% !important;height:auto !important}
 <body>
 <div class="shell">
 <aside class="sidebar">
-  <div class="brand"><span class="eyebrow">Hightouch 101</span><br>TollWay</div>
+  <div class="brand"><span class="eyebrow">Hightouch 101</span>TollWay<span class="brandsub">Training Site</span></div>
+  <a class="homebtn" href="../index.html">&larr; All lessons &amp; reference</a>
   <nav>
-    <a href="../../index.html" class="">Home</a>
-  <div class="navgroup"><div class="gh">Course</div>
-    <a href="../syllabus.html" class="">Syllabus</a>
-    <a href="../diagrams/architecture-overview.html" class="">Generic Architecture</a>
-    <a href="../diagrams/course-flow.html" class="">Generic Course Flow</a>
-    <a href="../recipes/hightouch-model-recipes.html" class="">Hightouch Model Recipes</a>
-    <a href="../recipes/hightouch-sync-recipes.html" class="">Hightouch Sync Recipes</a>
-    <a href="../recipes/braze-canvas-recipes.html" class="">Braze Canvas Recipes</a>
+  <div class="navgroup reset"><div class="gh"><span class="ic">■</span>Reset<span class="count">4</span></div>
     <a href="index.html" class="active">Reset — Index</a>
     <a href="warehouse-reset-template.html" class="">Warehouse Reset Template</a>
     <a href="hightouch-braze-checklist-template.html" class="">Hightouch + Braze Checklist Template</a>
-  </div>
-  <div class="navgroup"><div class="gh">TollWay</div>
-    <a href="../../tollway/brief.html" class="">Business Brief</a>
-    <a href="../../tollway/use-cases.html" class="">Use Cases</a>
-    <a href="../../tollway/reset/reset-tollway-checklist.html" class="">TollWay Reset Checklist</a>
-  </div>
-  <div class="navgroup"><div class="gh">TollWay Dictionary</div>
-    <a href="../../tollway/dictionary/index.html" class="">Dictionary — Index</a>
-    <a href="../../tollway/dictionary/tables.html" class="">Table Dictionary</a>
-    <a href="../../tollway/dictionary/relationships.html" class="">Relationships &amp; Diagrams</a>
-    <a href="../../tollway/dictionary/cheatsheet.html" class="">Diagnostic Cheatsheet</a>
-    <a href="../../tollway/dictionary/inconsistencies.html" class="">Known Deviations</a>
-  </div>
-  <div class="navgroup"><div class="gh">TollWay Lessons</div>
-    <a href="../../tollway/lessons/01-cdp-standup.html" class="">Lesson 1 — Stand Up the CDP</a>
-    <a href="../../tollway/lessons/02-single-customer-view.html" class="">Lesson 2 — Single Customer View</a>
-    <a href="../../tollway/lessons/03-destinations.html" class="">Lesson 3 — Destinations (roadmap)</a>
-    <a href="../../tollway/lessons/04-segments-and-activation.html" class="">Lesson 4 — Segments + Activation (roadmap)</a>
-    <a href="../../tollway/lessons/05-closing-the-loop.html" class="">Lesson 5 — Closing the Loop (roadmap)</a>
+    <a href="../tollway-reset/reset-tollway-checklist.html" class="">TollWay Reset Checklist</a>
   </div>
   </nav>
 </aside>
 <main class="page-content">
+<div class="admin-banner">Internal — not part of the lesson flow. Not linked from the student site.</div>
 <h1>Reset — Index</h1>
 <p>Two different reset mechanisms, for two different reasons:</p>
 <table><thead><tr><th>Platform</th><th>Mechanism</th><th>Why</th></tr></thead><tbody>

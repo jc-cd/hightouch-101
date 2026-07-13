@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lesson 5 — Closing the Loop (roadmap) · Hightouch 101</title>
+<title>Lesson 5 — Closing the Loop · Hightouch 101</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
@@ -11,19 +11,32 @@
 
 :root{
   --bg:#0D0D1A;--card:#1A1A2E;--line:#2a2a44;--txt:#ffffff;
-  --muted:#cfd0e0;--purple:#6C5CE7;--cyan:#00D4FF;
+  --muted:#cfd0e0;--purple:#6C5CE7;--cyan:#00D4FF;--green:#2ecc71;
+  --amber:#f1a33c;
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--txt);font-family:Poppins,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
 .shell{display:flex;min-height:100vh}
-.sidebar{width:260px;flex:0 0 260px;background:var(--card);border-right:1px solid var(--line);padding:22px 18px;position:sticky;top:0;height:100vh;overflow-y:auto}
-.brand{font-size:15px;font-weight:700;margin-bottom:18px;line-height:1.4}
-.brand .eyebrow{font-size:10.5px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--purple)}
-.navgroup{margin-bottom:16px}
-.navgroup .gh{font-size:10.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin:14px 0 6px}
-.navgroup a{display:block;color:var(--muted);text-decoration:none;font-size:13px;padding:5px 8px;border-radius:7px;margin-bottom:1px}
+
+.sidebar{width:272px;flex:0 0 272px;background:linear-gradient(180deg,#161629,var(--card));border-right:1px solid var(--line);padding:24px 16px;position:sticky;top:0;height:100vh;overflow-y:auto}
+.brand{font-size:17px;font-weight:700;margin-bottom:14px;line-height:1.3;padding:0 6px}
+.brand .eyebrow{display:block;font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--purple);margin-bottom:2px}
+.brand .brandsub{display:block;font-size:11px;font-weight:400;color:var(--muted);margin-top:2px}
+.homebtn{display:block;font-size:12px;color:var(--muted);text-decoration:none;border:1px solid var(--line);border-radius:9px;padding:8px 12px;margin:0 4px 18px;text-align:center}
+.homebtn:hover{border-color:var(--cyan);color:var(--cyan)}
+
+.navgroup{margin:0 0 20px;padding:2px 0 2px 14px;border-left:2px solid rgba(255,255,255,.08)}
+.navgroup.lessons{--gc:var(--cyan);--gcbg:rgba(0,212,255,.14)}
+.navgroup.reference{--gc:var(--purple);--gcbg:rgba(108,92,231,.16)}
+.navgroup.coursenotes{--gc:var(--amber);--gcbg:rgba(241,163,60,.14)}
+.navgroup.reset{--gc:#e05a5a;--gcbg:rgba(224,90,90,.15)}
+.navgroup .gh{display:flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;color:var(--gc);margin:0 0 8px}
+.navgroup .gh .ic{font-size:11px}
+.navgroup .gh .count{margin-left:auto;background:var(--gcbg);color:var(--gc);font-size:10px;font-weight:700;border-radius:999px;padding:1px 7px}
+.navgroup a{display:block;color:var(--muted);text-decoration:none;font-size:13.5px;padding:6px 10px;border-radius:8px;margin-bottom:2px;border-left:3px solid transparent}
 .navgroup a:hover{background:rgba(255,255,255,.05);color:var(--txt)}
-.navgroup a.active{background:rgba(108,92,231,.18);color:var(--cyan);font-weight:600}
+.navgroup a.active{background:var(--gcbg);color:var(--txt);font-weight:600;border-left:3px solid var(--gc);margin-left:-3px;padding-left:10px}
+
 main.page-content{flex:1;max-width:1300px;padding:36px 48px 80px}
 main.page-content h1{font-size:30px;font-weight:700;letter-spacing:-.3px;margin:0 0 18px;max-width:900px}
 main.page-content h2{font-size:19px;font-weight:600;margin:32px 0 12px;color:var(--cyan);max-width:900px}
@@ -44,15 +57,22 @@ main.page-content th{text-align:left;font-size:11px;letter-spacing:.8px;text-tra
 main.page-content td{padding:10px 14px 10px 0;border-bottom:1px solid rgba(255,255,255,.05);color:var(--muted);vertical-align:top}
 main.page-content .mermaid{width:100%;display:flex;justify-content:center;margin:20px 0 28px;overflow-x:auto}
 main.page-content .mermaid svg{max-width:100% !important;height:auto !important}
-.home-hero{max-width:820px;margin-bottom:30px}
-.home-hero .eyebrow{font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--purple);margin-bottom:6px}
-.home-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;max-width:1300px}
-.home-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
-.home-card h3{margin-top:0;color:var(--txt);font-size:15px}
-.home-card ul{margin:0;padding-left:20px}
-.home-card a{color:var(--cyan);text-decoration:none;font-size:14px}
-.home-card a:hover{text-decoration:underline}
-.home-card li{margin-bottom:5px}
+
+.admin-banner{max-width:1100px;background:rgba(224,90,90,.12);border:1px solid rgba(224,90,90,.4);color:#f0a5a5;border-radius:10px;padding:10px 16px;font-size:13px;font-weight:600;margin-bottom:24px}
+
+.hero{max-width:820px;margin-bottom:14px}
+.hero .eyebrow{font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--purple);margin-bottom:6px}
+.hero p{font-size:16px}
+.cta{display:inline-block;background:var(--purple);color:#fff;text-decoration:none;font-weight:600;font-size:15px;padding:13px 26px;border-radius:11px;margin:10px 0 34px}
+.cta:hover{opacity:.88}
+.home-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1300px}
+.home-card{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--gc);border-radius:14px;padding:18px 20px}
+.home-card h3{margin:0 0 12px;color:var(--txt);font-size:14px;display:flex;align-items:center;gap:6px;letter-spacing:.4px;text-transform:uppercase}
+.home-card ul{margin:0;padding-left:18px}
+.home-card a{color:var(--muted);text-decoration:none;font-size:14px}
+.home-card a:hover{color:var(--cyan);text-decoration:underline}
+.home-card li{margin-bottom:6px}
+
 @media(max-width:900px){
   .shell{flex-direction:column}
   .sidebar{width:100%;flex:none;position:relative;height:auto}
@@ -65,62 +85,96 @@ main.page-content .mermaid svg{max-width:100% !important;height:auto !important}
 <body>
 <div class="shell">
 <aside class="sidebar">
-  <div class="brand"><span class="eyebrow">Hightouch 101</span><br>TollWay</div>
+  <div class="brand"><span class="eyebrow">Hightouch 101</span>TollWay<span class="brandsub">Training Site</span></div>
+  <a class="homebtn" href="../../index.html">&larr; All lessons &amp; reference</a>
   <nav>
-    <a href="../../index.html" class="">Home</a>
-  <div class="navgroup"><div class="gh">Course</div>
+  <div class="navgroup lessons"><div class="gh"><span class="ic">▸</span>Lessons<span class="count">5</span></div>
+    <a href="01-cdp-standup.html" class="">Lesson 1 — Stand Up the CDP</a>
+    <a href="02-single-customer-view.html" class="">Lesson 2 — Single Customer View</a>
+    <a href="03-destinations.html" class="">Lesson 3 — Destinations</a>
+    <a href="04-segments-and-activation.html" class="">Lesson 4 — Segments + Activation</a>
+    <a href="05-closing-the-loop.html" class="active">Lesson 5 — Closing the Loop</a>
+  </div>
+  <div class="navgroup reference"><div class="gh"><span class="ic">❖</span>Reference<span class="count">6</span></div>
+    <a href="../brief.html" class="">Business Brief</a>
+    <a href="../use-cases.html" class="">Use Cases</a>
+    <a href="../dictionary/tables.html" class="">Table Dictionary</a>
+    <a href="../dictionary/relationships.html" class="">Relationships &amp; Diagrams</a>
+    <a href="../dictionary/cheatsheet.html" class="">Diagnostic Cheatsheet</a>
+    <a href="../dictionary/inconsistencies.html" class="">Known Deviations</a>
+  </div>
+  <div class="navgroup coursenotes"><div class="gh"><span class="ic">⚙</span>Course Notes<span class="count">6</span></div>
     <a href="../../course/syllabus.html" class="">Syllabus</a>
     <a href="../../course/diagrams/architecture-overview.html" class="">Generic Architecture</a>
     <a href="../../course/diagrams/course-flow.html" class="">Generic Course Flow</a>
     <a href="../../course/recipes/hightouch-model-recipes.html" class="">Hightouch Model Recipes</a>
     <a href="../../course/recipes/hightouch-sync-recipes.html" class="">Hightouch Sync Recipes</a>
     <a href="../../course/recipes/braze-canvas-recipes.html" class="">Braze Canvas Recipes</a>
-    <a href="../../course/reset/index.html" class="">Reset — Index</a>
-    <a href="../../course/reset/warehouse-reset-template.html" class="">Warehouse Reset Template</a>
-    <a href="../../course/reset/hightouch-braze-checklist-template.html" class="">Hightouch + Braze Checklist Template</a>
-  </div>
-  <div class="navgroup"><div class="gh">TollWay</div>
-    <a href="../brief.html" class="">Business Brief</a>
-    <a href="../use-cases.html" class="">Use Cases</a>
-    <a href="../reset/reset-tollway-checklist.html" class="">TollWay Reset Checklist</a>
-  </div>
-  <div class="navgroup"><div class="gh">TollWay Dictionary</div>
-    <a href="../dictionary/index.html" class="">Dictionary — Index</a>
-    <a href="../dictionary/tables.html" class="">Table Dictionary</a>
-    <a href="../dictionary/relationships.html" class="">Relationships &amp; Diagrams</a>
-    <a href="../dictionary/cheatsheet.html" class="">Diagnostic Cheatsheet</a>
-    <a href="../dictionary/inconsistencies.html" class="">Known Deviations</a>
-  </div>
-  <div class="navgroup"><div class="gh">TollWay Lessons</div>
-    <a href="01-cdp-standup.html" class="">Lesson 1 — Stand Up the CDP</a>
-    <a href="02-single-customer-view.html" class="">Lesson 2 — Single Customer View</a>
-    <a href="03-destinations.html" class="">Lesson 3 — Destinations (roadmap)</a>
-    <a href="04-segments-and-activation.html" class="">Lesson 4 — Segments + Activation (roadmap)</a>
-    <a href="05-closing-the-loop.html" class="active">Lesson 5 — Closing the Loop (roadmap)</a>
   </div>
   </nav>
 </aside>
 <main class="page-content">
-<h1>Lesson 5 — Closing the Loop (roadmap)</h1>
-<p><strong>Module 5 · Roadmap overview only for Lesson 1 · ~15 min preview</strong></p>
-<p>Not yet built out to full depth. This is the module the whole course architecture builds toward — see <a class="docref" href="../dictionary/relationships.html"><code>../dictionary/relationships.md</code></a>&#x27;s closing-the-loop diagram.</p>
-<h2>What this module will cover</h2>
+
+<h1>Lesson 5 — Closing the Loop</h1>
+<p><strong>Module 5 · Deep dive · ~60–75 min</strong></p>
+<h2>Before this lesson</h2>
+<p><strong>Lead-time warning, unlike every earlier lesson</strong>: this lesson depends on a <strong>Braze Data Share</strong> being provisioned into the sandbox&#x27;s Snowflake account, which is a one-time setup Braze&#x27;s side has to action — it isn&#x27;t something you enable yourself in the Braze dashboard. Request this from CD&#x27;s Braze account team (or whoever holds the sandbox relationship) at least a few days before running this lesson, giving them the sandbox Snowflake account locator to share into. If the Data Share isn&#x27;t available in time, see the fallback note at the end of this lesson before skipping the module entirely.</p>
+<p>Also required: UC1&#x27;s Canvas (Lesson 4) must have actually sent, and enough time must have passed for engagement events to land in the share — Data Share tables update on Braze&#x27;s own schedule, not instantly.</p>
+<h2>Learning objectives</h2>
+<p>By the end, the colleague should be able to:</p>
 <ol>
-<li><p>UC1&#x27;s Braze Canvas send generates engagement events (opens, clicks).</p></li>
-<li><p>Those events export via Braze Currents or Data Share (mechanism depends on what the sandbox&#x27;s Braze plan supports — see <a class="docref" href="../../course/recipes/braze-canvas-recipes.html"><code>../../course/recipes/braze-canvas-recipes.md</code></a>) into a new Snowflake table (not yet created — this is genuinely new data, not something in the current 6-table dataset).</p></li>
-<li><p>Hightouch re-queries that engagement table, joined back to the original UC1 segment logic, to build <strong>UC4</strong>: a refined re-engagement segment — e.g. &quot;opened the loyalty email but didn&#x27;t act — send a stronger offer&quot; vs. &quot;didn&#x27;t open at all — try a different channel or time.&quot;</p></li>
-<li><p>That refined segment syncs to Braze for a follow-up send.</p></li>
+<li><p>Explain what a Braze Data Share is and how it differs from a regular Hightouch sync (data flows in the opposite direction — Braze pushes into Snowflake, nothing to configure in Hightouch for this leg).</p></li>
+<li><p>Query engagement data landed via the share and join it back to the warehouse&#x27;s own tables.</p></li>
+<li><p>Build a refined segment from that join and close the loop with a follow-up send.</p></li>
 </ol>
-<h2>Roadmap talking points for Lesson 1</h2>
-<ul>
-<li><p>&quot;This is the payload the whole course has been building toward. Once we send something, Braze tells us who engaged. We bring that back into the warehouse and use it to make the <em>next</em> segment smarter than the first one — that&#x27;s what &#x27;closing the loop&#x27; means in a real CDP.&quot;</p></li>
-</ul>
-<h2>To build before this becomes a full lesson</h2>
-<ul>
-<li><p>Confirm the Currents/Data Share mechanism available in the sandbox (blocks the concrete click path).</p></li>
-<li><p>Design the exact schema of the new Snowflake engagement table once the export mechanism is confirmed.</p></li>
-<li><p>UC1 needs to have actually sent (Module 4 complete) before this module has real data to demonstrate against — this module cannot be taught in isolation.</p></li>
-</ul>
+<h2>1. Accept the Data Share in Snowflake</h2>
+<p>Once Braze&#x27;s side confirms the share is provisioned, in a Snowflake worksheet:</p>
+<pre><code class="language-sql">SHOW SHARES;</code></pre>
+<p>Look for an inbound share from Braze&#x27;s account (name varies by how Braze&#x27;s team configured it — confirm the exact identifier with them rather than guessing). Then:</p>
+<pre><code class="language-sql">CREATE DATABASE IF NOT EXISTS BRAZE_SHARE_DB FROM SHARE &lt;braze_account_locator&gt;.&lt;share_name&gt;;</code></pre>
+<p>This materializes the share as a queryable database — no data is copied, it&#x27;s a live view into Braze&#x27;s side.</p>
+<p>📸 <strong>Screenshot checkpoint</strong>: <code>SHOW SHARES</code> output and the <code>CREATE DATABASE ... FROM SHARE</code> confirmation.</p>
+<h2>2. Find the engagement view and identify UC1&#x27;s Canvas</h2>
+<ol>
+<li><p>Explore what the share contains:</p>
+<pre><code class="language-sql">SHOW VIEWS IN DATABASE BRAZE_SHARE_DB;</code></pre>
+<p>Look for an email-open or email-engagement view — naming follows Braze&#x27;s own convention and varies by workspace (something like <code>USERS_MESSAGES_EMAIL_OPEN_SHARED_&lt;workspace&gt;_VW</code>). Confirm the exact name against what&#x27;s actually there rather than assuming.</p></li>
+<li><p>In the Braze dashboard, open the UC1 Canvas (<code>HT101 TW — UC1 Loyalty Upsell</code>) and find its API identifier (<strong>Canvas details → API Identifier</strong>, or the Canvas ID visible in the URL). You&#x27;ll need this to filter the shared engagement view down to just this send.</p></li>
+<li><p>Sanity-check row volume before building anything on top of it:</p>
+<pre><code class="language-sql">SELECT COUNT(*)
+FROM BRAZE_SHARE_DB.SHARED.&lt;engagement_view_name&gt;
+WHERE campaign_id = &#x27;&lt;UC1 canvas api id&gt;&#x27;</code></pre>
+<p>If this returns zero, stop — either not enough time has passed since the send, or the ID/view name is wrong. Don&#x27;t build the Hightouch model on top of an empty check.</p></li>
+</ol>
+<p>📸 <strong>Screenshot checkpoint</strong>: the Canvas API Identifier field, and the row-count query result above zero.</p>
+<h2>3. Build the Hightouch model joining engagement back to CUSTOMERS</h2>
+<ol>
+<li><p><strong>Models → Add model → SQL model</strong>, source = the same Snowflake source from Lesson 1 (the share is queryable through the same connection, since it&#x27;s just another database the role can see — confirm the role has <code>IMPORTED PRIVILEGES</code> on <code>BRAZE_SHARE_DB</code> if this errors):</p>
+<pre><code class="language-sql">SELECT DISTINCT
+  c.customer_id,
+  TRUE AS ht101_tw_uc4_engaged_followup
+FROM DEMO_DB.HT101_TW.CUSTOMERS c
+JOIN BRAZE_SHARE_DB.SHARED.&lt;engagement_view_name&gt; eo
+  ON eo.external_user_id = c.customer_id
+WHERE eo.campaign_id = &#x27;&lt;UC1 canvas api id&gt;&#x27;</code></pre>
+<p>This is UC4 exactly as scoped in <a class="docref" href="../use-cases.html"><code>../use-cases.md</code></a>: customers from UC1&#x27;s send who opened — re-segmented for a follow-up, not a brand-new audience built from scratch.</p></li>
+<li><p>Save as <code>TollWay - UC4 Engaged Followup</code>. Row count should be less than or equal to UC1&#x27;s synced audience size from Lesson 4 (not everyone opens).</p></li>
+</ol>
+<p>📸 <strong>Screenshot checkpoint</strong>: the model preview showing the row count.</p>
+<h2>4. Sync back to Braze and send the follow-up</h2>
+<ol>
+<li><p><strong>Syncs → Add sync</strong>, source = <code>TollWay - UC4 Engaged Followup</code>, destination = <code>TollWay - Braze</code>, matched on <code>external_id = customer_id</code>, mapping <code>ht101_tw_uc4_engaged_followup</code> to a same-named Braze custom attribute.</p></li>
+<li><p>Run the sync.</p></li>
+<li><p>In Braze: <strong>Segments → Create Segment</strong>, filter Custom Attribute <code>ht101_tw_uc4_engaged_followup</code> is <code>true</code>. Save as <code>TollWay - Engaged Followup (UC4)</code>.</p></li>
+<li><p><strong>Canvas → Create Canvas</strong>, single-step email targeting that segment, mock content pitching a stronger Gold-tier offer (this is the &quot;next-best-action&quot; — a sharper message to people who&#x27;ve already shown interest, not a generic repeat of UC1). Name it <code>HT101 TW — UC4 Engaged Followup</code>. Launch.</p></li>
+</ol>
+<p>📸 <strong>Screenshot checkpoint</strong>: the UC4 Canvas analytics view showing entries.</p>
+<h2>5. This is the loop, closed</h2>
+<p>Trace it end to end: a Snowflake table you loaded in Lesson 1 → a single customer view you built in Lesson 2 → a segment synced to Braze in Lesson 4 → a real send → engagement data Braze pushed back into that same Snowflake account → a refined segment built from it → a second, sharper send. That round trip — warehouse to activation platform and back again, each pass smarter than the last — is what a CDP actually buys a business, not just &quot;send one campaign.&quot;</p>
+<h2>If the Data Share isn&#x27;t available in time</h2>
+<p>Braze also supports <strong>Currents</strong> (an event-stream export to cloud storage or a webhook) as an alternative to Data Share — it requires an extra ingestion step (landing Currents&#x27; export somewhere Snowflake can load from, e.g. an external stage over S3/GCS) rather than a direct queryable database, which is more setup than this lesson assumes. If Data Share genuinely isn&#x27;t provisionable for the sandbox, treat this as a scoping conversation rather than a click-path swap — the ingestion step needs designing properly, not squeezed into this lesson&#x27;s step 1.</p>
+<h2>Course complete</h2>
+<p>All five modules are now built for real, not just previewed. See <a class="docref" href="../../course/syllabus.html"><code>../../course/syllabus.md</code></a> for the full module list and <a class="docref" href="../use-cases.html"><code>../use-cases.md</code></a> for how each use case maps across them — worth a second read now that all four have actually been built, to see how the pieces fit together.</p>
 </main>
 </div>
 <script>
